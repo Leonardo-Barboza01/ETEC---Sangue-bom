@@ -1,0 +1,203 @@
+1 - use concessionaria
+
+2 e 3 - db.createCollection("Veiculos", {capped:true, size:100000, max:10})
+ db.Veiculos.insertOne( {_id:"01", marca:"Fiat", modelo: "Strada", ano: 2017, preco: 77.000, cor:"vermelho", combustivel: "flex", portas: 4, status:"Disponível"})
+{ acknowledged: true, insertedId: '01' }
+concessionaria> db.Veiculos.insertOne( {_id:"02", marca:"Fiat", modelo: "Palio", ano: 2009, preco:40.000, cor:"cinza", combustivel: "flex", portas: 4, status:"Disponível"})
+{ acknowledged: true, insertedId: '02' }
+concessionaria> db.Veiculos.insertOne( {_id:"03", marca:"Fiat", modelo: "Stada", ano: 2010, preco:70.000, cor:"Branco", combustivel: "diesel", portas: 2, status:"Indisponível"})
+{ acknowledged: true, insertedId: '03' }
+concessionaria> db.Veiculos.insertOne( {_id:"04", marca:"Fiat", modelo: "Civic", ano: 2016, preco:120.000, cor:"preto", combustivel: "diesel", portas: 4, status:"Disponível"})
+{ acknowledged: true, insertedId: '04' }
+concessionaria> db.Veiculos.insertOne( {_id:"05", marca:"Fiat", modelo: "Hb20", ano: 2014, preco:100.000, cor:"preto", combustivel: "flex", portas: 2, status:"Indisponível"})
+{ acknowledged: true, insertedId: '05' }
+
+4 -  db.Veiculos.find({status: "Disponível"})
+[
+  {
+    _id: '01',
+    marca: 'Fiat',
+    modelo: 'Strada',
+    ano: 2017,
+    preco: 77,
+    cor: 'vermelho',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '02',
+    marca: 'Fiat',
+    modelo: 'Palio',
+    ano: 2009,
+    preco: 40,
+    cor: 'cinza',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '04',
+    marca: 'Fiat',
+    modelo: 'Civic',
+    ano: 2016,
+    preco: 120,
+    cor: 'preto',
+    combustivel: 'diesel',
+    portas: 4,
+    status: 'Disponível'
+  }
+]
+
+5 - db.Veiculos.find({cor:"Branco", preco:{$gt:50.000}})
+[
+  {
+    _id: '03',
+    marca: 'Fiat',
+    modelo: 'Stada',
+    ano: 2010,
+    preco: 70,
+    cor: 'Branco',
+    combustivel: 'diesel',
+    portas: 2,
+    status: 'Indisponível'
+  }
+]
+6 -  db.Veiculos.find({status:"Disponível", preco:{$lt:30.000}})
+Não possui este dado na Collection.
+
+7 - db.Veiculos.find({ano:2020, ano: 2021, ano: 2022, ano: 2024})
+Não possui este dado na Collection.
+
+8 -  db.Veiculos.find({marca:"Fiat", portas:{$lt:4}})
+[
+  {
+    _id: '03',
+    marca: 'Fiat',
+    modelo: 'Stada',
+    ano: 2010,
+    preco: 70,
+    cor: 'Branco',
+    combustivel: 'diesel',
+    portas: 2,
+    status: 'Indisponível'
+  },
+  {
+    _id: '05',
+    marca: 'Fiat',
+    modelo: 'Hb20',
+    ano: 2014,
+    preco: 100,
+    cor: 'preto',
+    combustivel: 'flex',
+    portas: 2,
+    status: 'Indisponível'
+  }
+]
+
+9 -  db.Veiculos.find({}).pretty()
+[
+  {
+    _id: '01',
+    marca: 'Fiat',
+    modelo: 'Strada',
+    ano: 2017,
+    preco: 77,
+    cor: 'vermelho',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '02',
+    marca: 'Fiat',
+    modelo: 'Palio',
+    ano: 2009,
+    preco: 40,
+    cor: 'cinza',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '03',
+    marca: 'Fiat',
+    modelo: 'Stada',
+    ano: 2010,
+    preco: 70,
+    cor: 'Branco',
+    combustivel: 'diesel',
+    portas: 2,
+    status: 'Indisponível'
+  },
+  {
+    _id: '04',
+    marca: 'Fiat',
+    modelo: 'Civic',
+    ano: 2016,
+    preco: 120,
+    cor: 'preto',
+    combustivel: 'diesel',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '05',
+    marca: 'Fiat',
+    modelo: 'Hb20',
+    ano: 2014,
+    preco: 100,
+    cor: 'preto',
+    combustivel: 'flex',
+    portas: 2,
+    status: 'Indisponível'
+  }
+]
+
+10 -  db.Veiculos.find({$or:[{combustivel:"flex"},{ portas:4}]})
+[
+  {
+    _id: '01',
+    marca: 'Fiat',
+    modelo: 'Strada',
+    ano: 2017,
+    preco: 77,
+    cor: 'vermelho',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '02',
+    marca: 'Fiat',
+    modelo: 'Palio',
+    ano: 2009,
+    preco: 40,
+    cor: 'cinza',
+    combustivel: 'flex',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '04',
+    marca: 'Fiat',
+    modelo: 'Civic',
+    ano: 2016,
+    preco: 120,
+    cor: 'preto',
+    combustivel: 'diesel',
+    portas: 4,
+    status: 'Disponível'
+  },
+  {
+    _id: '05',
+    marca: 'Fiat',
+    modelo: 'Hb20',
+    ano: 2014,
+    preco: 100,
+    cor: 'preto',
+    combustivel: 'flex',
+    portas: 2,
+    status: 'Indisponível'
+  }
+]
