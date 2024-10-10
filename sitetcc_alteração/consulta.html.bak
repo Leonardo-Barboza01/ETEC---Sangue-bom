@@ -265,8 +265,59 @@
                 </div>
             </div>
         </div>
+    <canvas id="graficoValores" width="400" height="200"></canvas>
     </div>
-	<script>
+
+    <script>
+        const valores = [];
+        const labels = [];
+        const chartConfig = {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Valores de Eritrócitos',
+                    data: valores,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tempo'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Valores'
+                        }
+                    }
+                }
+            }
+        };
+
+        let chart = new Chart(document.getElementById('graficoValores').getContext('2d'), chartConfig);
+
+        function atualizarGrafico(tipo) {
+            const valor = parseFloat(document.getElementById(`Valor${tipo}`).value);
+            if (!isNaN(valor)) {
+                valores.push(valor);
+                labels.push(new Date().toLocaleTimeString());
+
+                if (valores.length > 10) {
+                    valores.shift();
+                    labels.shift();
+                }
+
+                chart.update();
+            }
+        }
+
 <!-- SERIE VERMELHA -->
 function calcularEritrocitos (){
 
@@ -378,20 +429,6 @@ function calcularRDW() {
     }
 }
  
-<!-- REVER LEUCUGRAMA --> 
-function calcularLeucograma() {
-    let leucograma = parseFloat(document.getElementById("ValorLeucograma").value);
-    let resultado = document.getElementById("ResultadoLeucograma");
-    resultado.innerHTML = "";
-
-    if (leucograma < 4.0) {
-        resultado.innerHTML = "Baixo, não adequado";
-    } else if (leucograma >= 4.0 && leucograma <= 11.0) {
-        resultado.innerHTML = "Normal, adequado";
-    } else {
-        resultado.innerHTML = "Inadequado, alto demais";
-    }
-}
 <!-- SERIE BRANCA -->
 function calcularLeucocitos() {
     let leucocitos = parseFloat(document.querySelector("input[placeholder='Digite o valor de referência...']").value);
@@ -556,8 +593,7 @@ function calcularPlasmocitos() {
         <button onclick="window.location.href='opcoes.html'">VOLTAR</button>
     </div>
 
-    <p class="policy">
-        <a href="sobrenos.html">Sangue Bom.</a> 
-    </p>
+    
+ 
 </body>
 </html>

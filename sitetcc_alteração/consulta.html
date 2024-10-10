@@ -267,6 +267,7 @@
         </div>
     </div>
 	<script>
+	
 <!-- SERIE VERMELHA -->
 function calcularEritrocitos (){
 
@@ -378,20 +379,6 @@ function calcularRDW() {
     }
 }
  
-<!-- REVER LEUCUGRAMA --> 
-function calcularLeucograma() {
-    let leucograma = parseFloat(document.getElementById("ValorLeucograma").value);
-    let resultado = document.getElementById("ResultadoLeucograma");
-    resultado.innerHTML = "";
-
-    if (leucograma < 4.0) {
-        resultado.innerHTML = "Baixo, não adequado";
-    } else if (leucograma >= 4.0 && leucograma <= 11.0) {
-        resultado.innerHTML = "Normal, adequado";
-    } else {
-        resultado.innerHTML = "Inadequado, alto demais";
-    }
-}
 <!-- SERIE BRANCA -->
 function calcularLeucocitos() {
     let leucocitos = parseFloat(document.querySelector("input[placeholder='Digite o valor de referência...']").value);
