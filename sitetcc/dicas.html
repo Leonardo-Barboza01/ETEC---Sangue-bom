@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangue Bom</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5e9e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .central-box {
+            background-color: #e0a4a4;
+            padding: 40px;
+            border-radius: 60px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            width: 800px; /* Ajustado para um tamanho mais compacto */
+			height:400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adicionado sombra para profundidade */
+        }
+
+        .button-row {
+            display: flex; /* Alinha os botões na horizontal */
+            justify-content: center; /* Centraliza os botões */
+            gap: 10px; /* Espaçamento entre os botões */
+            margin-bottom: 20px; /* Espaçamento entre os botões e o botão de voltar */
+        }
+
+        .btn {
+            background-color: #8b1b1b;
+            color: white;
+			border:none;
+			margin:50px;
+            padding: 20px 40px; /* Ajustado para um tamanho mais adequado */
+            font-size: 18px;
+            border-radius: 50px; /* Mantido arredondado, mas menos extremo */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Adicionadas transições suaves */
+        }
+
+        .btn:hover {
+            background-color: #a52a2a; /* Cor do botão ao passar o mouse */
+            transform: translateY(-2px); /* Efeito de leve elevação ao passar o mouse */
+        }
+
+        .btn.voltar {
+            background-color: white;
+            color: #8b1b1b;
+            border: 2px solid #8b1b1b;
+            width: 40%; /* Largura ajustada para melhor proporção */
+            padding: 15px 0; /* Padding para o botão de voltar */
+            align-self: center; /* Centraliza o botão de voltar */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="central-box">
+            <div class="button-row"> 
+                <button class="btn consulta" onclick="window.location.href='termos.html'">TERMOS</button>
+                <button class="btn dicas" onclick="window.location.href='saude.html'">SAÚDE E<br>BEM-ESTAR</button>
+                <button class="btn dicas" onclick="window.location.href='sobre_nos.html'">SOBRE NÓS</button>
+            </div>
+            <button class="btn voltar" onclick="window.location.href='inicio.html'">VOLTAR</button>
+        </div>
+    </div>
+</body>
+</html>
