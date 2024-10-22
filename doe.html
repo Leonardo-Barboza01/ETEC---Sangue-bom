@@ -10,21 +10,37 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;  /* Garante que o body e o html ocupem 100% da altura */
+            height: 100%;
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
+            font-size: 1em; /* Tamanho da fonte */
         }
 
         /* Div que preenche a tela toda */
         .newsletter-container {
-            width: 100vw;  /* 100% da largura da janela de visualização */
-            height: 100vh; /* 100% da altura da janela de visualização */
+            width: 100%;
+            max-width: 1200px; /* Limita a largura da página */
+            margin: auto; /* Centraliza a página */
             background-color: white;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
+
+        /* Div que preenche a tela toda */
+        .newsletter-container-titulo {
+            
+            width: 75%;
+            border-radius: 70%;
+            max-width: 1200px; /* Limita a largura da página */
+            margin: auto; /* Centraliza a página */
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+
 
         /* Cabeçalho */
         header {
@@ -32,7 +48,7 @@
             color: #fff;
             padding: 20px;
             text-align: center;
-            font-size: 48px;
+            font-size: 36px;
             font-weight: bold;
         }
 
@@ -40,73 +56,53 @@
         .subheader {
             color: #000000;
             text-align: center;
-            font-size: 50px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
-/* Seção de tópicos */
-/* Seção de tópicos */
-.topics-container {
-    display: flex;
-    flex-direction: column; /* Organiza os tópicos em uma coluna */
-    justify-content: space-between; /* Espaçamento uniforme entre os tópicos */
-    width: 35%; /* Ajusta a largura da área dos tópicos para caber ao lado da imagem */
-    margin-left: 20px; /* Adiciona um espaço entre a imagem e os tópicos */
-}
+        /* Layout de jornal */
+        .news-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
 
-/* Definir os tópicos como quadrados */
-.topic1, .topic2, .topic3 {
-    padding: 20px;
-    height: 250px;  /* Altura fixa para garantir o formato quadrado */
-    width: 100%;    /* Largura completa da coluna */
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 20px;  /* Espaçamento entre os tópicos */
-}
+        /* Seção de imagem e serviços */
+        .news-item {
+            background-color: #ec670f;
+            border-radius: 10px;
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-.topic1 {
-    background-color: #8b0000;
-}
+        .news-item img {
+            width: 100%;
+            border-radius: 10px;
+            max-height: 200px; /* Define uma altura máxima */
+            object-fit: cover; /* Faz com que a imagem cubra todo o espaço */
+        }
 
-.topic2, .topic3 {
-    background-color: #ffb703;
-}
-
-/* Seção de imagem e serviços */
-.services-container {
-    display: flex;
-    justify-content: flex-start; /* Garante que a imagem e os tópicos fiquem alinhados à esquerda */
-    align-items: flex-start; /* Alinha o topo da imagem com o topo dos tópicos */
-    gap: 20px; /* Espaçamento entre a imagem e os tópicos */
-}
-
-.services-container img {
-    width: 40%;  /* Ajuste da largura da imagem */
-    border-radius: 10px;
-}
-
-
-
+        .news-item h2 {
+            margin: 10px 0;
+        }
 
         .services-content-titulo {
-            font-size: 36px;
+            font-size: 30px;
             color: #000000;
+            text-align: center;
+            margin: 20px 0;
         }
 
         .services-content-texto {
-            width: 100vw;  /* 100% da largura da janela de visualização */
-            height: 100vh; /* 100% da altura da janela de visualização */
-            font-size: 50px;
+            font-size: 20px;
             line-height: 1.6;
             text-align: justify;
             color: #000000;
-            
+            margin: 20px 0;
         }
 
         /* Botão */
@@ -114,13 +110,13 @@
             background-color: #0077b6;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 25px;
+            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
             display: block;
-            width: 150px;
+            width: 130px;
+            margin: 20px auto;
             text-align: center;
         }
 
@@ -131,7 +127,52 @@
         footer {
             text-align: center;
             color: #000000;
-            font-size: 14px;
+            font-size: 12px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                font-size: 28px; /* Reduz o tamanho do cabeçalho */
+            }
+
+            .subheader {
+                font-size: 20px; /* Reduz o tamanho do subtítulo */
+            }
+
+            .services-content-titulo {
+                font-size: 24px; /* Reduz o tamanho do título de serviços */
+            }
+
+            .services-content-texto {
+                font-size: 18px; /* Reduz o tamanho do texto */
+            }
+
+            .btn {
+                width: 100%; /* Botão ocupa a largura total */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                font-size: 24px; /* Reduz ainda mais o tamanho do cabeçalho */
+            }
+
+            .subheader {
+                font-size: 18px; /* Reduz ainda mais o tamanho do subtítulo */
+            }
+
+            .services-content-titulo {
+                font-size: 20px; /* Reduz ainda mais o tamanho do título de serviços */
+            }
+
+            .services-content-texto {
+                font-size: 16px; /* Reduz ainda mais o tamanho do texto */
+            }
+
+            .news-item {
+                padding: 10px; /* Ajusta o padding para telas pequenas */
+            }
         }
     </style>
 </head>
@@ -139,50 +180,70 @@
 <body>
 
     <div class="newsletter-container">
-        <!-- Seção de tópicos -->
-
         <header>
             Doe Sangue
         </header>
-
+                                    <br> <br>
         <div class="subheader">"Um simples ato que poderá repercutir por várias gerações"</div>
 
-        <!-- Seção de imagem e serviços -->
-        <div class="services-container">
-            <img src="https://via.placeholder.com/400x300" alt="Imagem ilustrativa">
-            <div class="topics-container">
-                <div class="topic1">
-                    <h2>Dicas 1</h2>
-                    <p>Texto 1</p>
-                </div>
-                <div class="topic2">
-                    <h2>Dicas 2</h2>
-                    <p>Texto para dicas 2</p>
-                </div>
-                <div class="topic3">
-                    <h2>Dicas 3</h2>
-                    <p> Texto para dicas 3</p>
-                </div>
+        <div class="newsletter-container-titulo">
+            <header><center><h2> Dicas de Doação </h2></center> </header>
+        </div> 
+
+        <div class="news-layout">
+            <div class="news-item">
+                <img src="https://cdn.prod.website-files.com/62cc56fc2b55bd9bafba3478/648a595935263e90541b8fc4_doar-sangue-faz-bem%20(1).jpg" alt="Imagem de doação de sangue">
+               
+                <p>Prepare-se bem antes de doar!</p>
+                <p>Se alimente adequadamente!</p>
+                <p>Sempre se mantenha hidratado sempre!</p>
             </div>
+            <div class="news-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQWUh_ZtfnLe6s_htNROTlhEwqbofInlOXMg&s" alt="Imagem de doação de sangue">
+                <h2>Requisitos</h2>
+                <p>Ter entre 16 e 69 anos e pesar mais de 50kg.</p>
+            </div>
+
+            <div class="news-item">
+                <img src="https://www12.senado.leg.br/radio/1/noticia/2024/09/26/27-de-setembro-e-o-dia-nacional-da-doacao-de-orgaos/@@images/ce2a7d7c-8b3f-47d9-b5a9-d9608e0fefba.jpeg">
+                <h2> Motivos para ir doar sangue</h2>
+                <p>Dia de folga. 
+                    <br><br>
+                    Protege o coração.
+                    <br><br>
+                    Menos risco de câncer.
+                    <br><br>
+                    Ajudar quem precisa.</p>
+                </div>
+
+                
+                <div class="news-item">
+                    <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg">
+                    <h2> Quantas vida pode salvar ?</h2>
+                  <p> A doação permite doar vida ate quatro pessoa </p>
+                  <p>
+                    Em um doação são coletados no máximo 450 ml. E Esse volume é reposto em 24 horas pelo organismo.
+                  </p>
+                    </div>
+            
         </div>
 
         <div class="services-content-titulo">
-            <h2>Qual a importancia da doação de Sangue ?</h2>
+            <h2>Qual a importância da doação de Sangue?</h2>
         </div>
 
         <div class="services-content-texto">
             <p>
-                Texto sobre doação de Sangue
+                A doação de sangue é um ato de solidariedade que pode salvar vidas. Cada doação pode ajudar até quatro pessoas, oferecendo suporte em cirurgias, tratamentos de doenças e emergências. Além disso, a doação regular de sangue traz benefícios à saúde do doador, como a redução do risco de doenças cardiovasculares.
             </p>
         </div>
 
-        <a href="dicas.html" class="btn">LEARN MORE</a> <!-- Botão -->
+        <a href="dicas.html" class="btn">Voltar</a>
 
         <footer>
-            © 2024 - Sangue Bom
+            © 2024 - Sangue Bom      
         </footer>
     </div>
 
 </body>
-
 </html>
