@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <style>
+        
+        body {
+            margin: 0; 
+            font-family: 'Georgia', serif;
+           background-color: #FDECEC; ;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            height: 100vh; 
+            color: #333; 
+        }
+
+        .logo-container {
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 30px; 
+        }
+
+        .logo-container img {
+            width: 60px; 
+            height: 60px;
+            margin-right: 10px; 
+        }
+
+        .logo-container span {
+            font-size: 24px;
+            font-weight: bold; 
+            color: #94150D; 
+        }
+
+        .sobre-nos {
+            background-color: #fff; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            max-width: 800px; 
+            width: 100%; 
+            line-height: 1.6; 
+        }
+
+        .sobre-nos h1 {
+            font-size: 28px;
+            color: #94150D; 
+            margin-bottom: 10px; 
+        }
+		
+		.btn.voltar {
+			background-color: white;
+			color: #8b1b1b;
+			border: 2px solid #8b1b1b;
+			border-radius: 20px;
+			width: 15%; 
+			height:-20%;
+			align-self: center; 
+			padding: 10px 0; 
+			margin:5px;
+		}
+
+		.botao-vermelho:hover {
+            background-color: darkred; 
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo Sangue Bom">
+        <span>Sangue Bom</span>
+    </div>
+
+   
+    <div class="sobre-nos">
+        <h1>Sobre Nós</h1>
+        <p>
+            Bem-vindo ao <strong>Sangue Bom!!</strong>
+        </p>
+		
+        <p>
+           Desde o início, nosso trabalho teve como objetivo desenvolver uma ferramenta digital que tornasse a compreensão de exames de sangue mais acessível
+		   e descomplicada. Reconhecemos que muitos indivíduos enfrentam dificuldades ao interpretar os resultados laboratoriais, especialmente um hemograma, 
+		   que é um dos exames mais comuns. A partir dessa necessidade, decidimos criar um site que oferecesse aos usuários a capacidade de entender melhor 
+		   seus exames e esclarecer dúvidas específicas através de um campo de busca intuitivo.
+		</p>
+		   
+		<p>
+			A plataforma se mostrou eficaz em educar e empoderar os usuários, permitindo que eles compreendam melhor suas condições de saúde. 
+			Acreditamos que, ao fornecer informações claras e confiáveis, contribuímos para uma sociedade mais informada e saudável. 
+			Nossa justificativa para a realização deste projeto está nas experiências e nas dificuldades que muitas pessoas enfrentam ao lidar 
+			com os resultados de seus exames laboratoriais. Ao abordar essa questão, esperamos não apenas esclarecer dúvidas, mas também promover
+			a autonomia dos usuários na gestão de sua saúde.
+		</p>
+			
+        <p>
+           Estamos comprometidos em continuar a aprimorar nossa plataforma, sempre focando em proporcionar uma experiência informativa e enriquecedora.
+			Nossa missão é ser um recurso valioso para todos que buscam entender melhor seu corpo e os cuidados necessários para uma vida saudável.
+        </p>
+		
+    </div>
+
+    <br><br>
+    <button class="btn voltar" onclick="window.location.href='opcoes.html'">Voltar</button>
+</body>
+</html>

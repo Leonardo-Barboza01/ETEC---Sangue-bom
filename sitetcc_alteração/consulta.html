@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Consulta</title>
+<style>
+        * {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #EEE2E2;
+            padding: 20px;
+        }
+
+        .main {
+            background-color: white;
+            border-top: 12px solid #94150D;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .main h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .series-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .series {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .series h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .seriesvermelha {
+            color: red;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .seriesbranca {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: black;
+        }
+
+        input[type="text"] {
+            border: 2px solid #94150D;
+            border-radius: 30px;
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: #94150D;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #452286;
+        }
+
+        .policy {
+            font-size: 14px;
+            color: grey;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .policy a {
+            text-decoration: none;
+            color: grey;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1000px) {
+            .main h1 {
+                font-size: 2rem;
+            }
+
+            .series {
+                width: 100%;
+            }
+
+            .series h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main h1 {
+                font-size: 1.5rem;
+            }
+
+            .series h3 {
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <h1>Insira seus valores de referência</h1>
+        <div class="series-container">
+            <div class="series">
+                <p class= "seriesvermelha">SÉRIE VERMELHA (ERITOGRAMA)</p>
+				
+                <div class="input">
+                    <h3>ERITRÓCITOS</h3>
+                    <input type="text"  v-model.number="eritrocitos" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>HEMOGLOBINA</h3>
+                    <input type="text"  v-model.number="hemoglobina" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>HEMATÓCRITO</h3>
+                    <input type="text"  v-model.number="hematocrito" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>VCM</h3>
+                    <input type="text"  v-model.number="VCM" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>HCM</h3>
+                    <input type="text"  v-model.number="HCM" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>CHCM</h3>
+                    <input type="text"  v-model.number="CHCM" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>RDW</h3>
+                    <input type="text"  v-model.number="RDW" placeholder="Digite o valor de referência..." />
+                </div>
+				
+                <div class="input">
+                    <h3>LEUCOGRAMA</h3>
+                    <input type="text"  v-model.number="leucograma" placeholder="Digite o valor de referência..." />
+                </div>
+            </div>
+			
+            <div class="series">
+                <p class= "seriesbranca">SÉRIE BRANCA<br>(LEUCOGRAMA)</p>
+				
+                <div class="input">
+                    <h3>LEUCÓCITOS</h3>
+                    <input type="text"  v-model.number="leucocitos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>PROMIELÓCITOS</h3>
+                    <input type="text"  v-model.number="promielocitos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>MIELÓCITOS</h3>
+                    <input type="text" v-model.number="mielocitos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>METAMIELÓCITOS</h3>
+                    <input type="text"  v-model.number="metamielocitos" placeholder="Digite o valor de referência..." required />  
+                </div>
+				
+                <div class="input">
+                    <h3>BASTONETES</h3>
+                    <input type="text"  v-model.number="bastonetes" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>SEGMENTADOS</h3>
+                    <input type="text"  v-model.number="segmentados" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>EOSINÓFILOS</h3>
+                    <input type="text"  v-model.number="eosinofilos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>BASÓFILOS</h3>
+                    <input type="text"  v-model.number="basofilos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>LINF. TÍPICOS</h3>
+                    <input type="text"   v-model.number="tipicos" placeholder="Digite o valor de referência..." required />  
+                </div>
+				
+                <div class="input">
+                    <h3>LINF. ATÍPICOS</h3>
+                    <input type="text"  v-model.number="atipicos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>MONÓCITOS</h3>
+                    <input type="text"  v-model.number="monocitos" placeholder="Digite o valor de referência..." required />
+                </div>
+				
+                <div class="input">
+                    <h3>PLASMÓCITOS</h3>
+                    <input type="text"  v-model.number="plasmocitos" placeholder="Digite o valor de referência..." required />
+
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="resultado">
+            <h2>Resultados:</h2>
+            <p>ERITRÓCITOS: {{ calcularEritrocitos() }}</p>
+            <p>HEMOGLOBINA: {{ calcularHemoglobina() }}</p>
+            <p>HEMATÓCRITO: {{ calcularHematocrito() }}</p>
+            <p>VCM: {{ calcularVCM() }}</p>
+            <p>HCM: {{ calcularHCM() }}</p>
+            <p>CHCM: {{ calcularCHCM() }}</p>
+            <p>RDW: {{ calcularRDW() }}</p>
+            <p>LEUCÓCITOS: {{ calcularLeucocitos() }}</p>
+            <!-- Adicione os resultados dos demais campos -->
+        </div>
+       
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                eritrocitos: '',
+                hemoglobina: '',
+                hematocrito: '',
+                vcm: '',
+                hcm: '',
+                chcm: '',
+                rdw: '',
+                leucocitos: ''
+                // Adicione mais variáveis conforme necessário
+            },
+            methods: {
+                calcularEritrocitos() {
+                    if (this.eritrocitos <= 4.4) return "Baixo, não adequado";
+                    else if (this.eritrocitos > 4.4 && this.eritrocitos <= 5.5) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularHemoglobina() {
+                    if (this.hemoglobina <= 13) return "Baixo, não adequado";
+                    else if (this.hemoglobina > 13 && this.hemoglobina <= 17) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularHematocrito() {
+                    if (this.hematocrito <= 40) return "Baixo, não adequado";
+                    else if (this.hematocrito > 40 && this.hematocrito <= 50) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularVCM() {
+                    if (this.vcm < 83) return "Baixo, não adequado";
+                    else if (this.vcm >= 83 && this.vcm <= 101) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularHCM() {
+                    if (this.hcm < 27) return "Baixo, não adequado";
+                    else if (this.hcm >= 27 && this.hcm <= 31) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularCHCM() {
+                    if (this.chcm < 31.5) return "Baixo, não adequado";
+                    else if (this.chcm >= 31.5 && this.chcm <= 34.5) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularRDW() {
+                    if (this.rdw < 11.6) return "Baixo, não adequado";
+                    else if (this.rdw >= 11.6 && this.rdw <= 14) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+                calcularLeucitos() {
+                    if (this.leucocitos < 4000) return "Baixo, não adequado";
+                    else if (this.leucocitos >= 4000 && this.leucocitos <= 10000) return "Normal, adequado";
+                    else return "Inadequado, alto demais";
+                },
+
+</script>
+
+<center>
+    <div class="submit">
+        <button onclick="window.location.href='opcoes.html'">VOLTAR</button>
+    </div>
+</center>
+    
+ 
+</body>
+</html>
+
+    
+ 
