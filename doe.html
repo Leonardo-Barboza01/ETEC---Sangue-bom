@@ -12,7 +12,7 @@
             padding: 0;
             height: 100%;
             font-family: 'Arial', sans-serif;
-            background-color: #eee2e2;
+            background: url('https://www.transparenttextures.com/patterns/paper.png') repeat; /* Textura */
             font-size: 1em; /* Tamanho da fonte */
         }
 
@@ -27,24 +27,28 @@
             flex-direction: column;
         }
 
-        /* Div que preenche a tela toda */
-        .newsletter-container-titulo {
-            
+        .container-segundo {
             width: 75%;
-            border-radius: 70%;
-            max-width: 1200px; /* Limita a largura da página */
+            max-width: 1300px; /* Limita a largura da página */
             margin: auto; /* Centraliza a página */
-            background-color: white;
+            background-color: #dda0dd;
             padding: 20px;
             display: flex;
             flex-direction: column;
+            border-radius: 90px;
+            opacity: 0; /* Inicialmente invisível */
+            transform: translatey(30px); /* Começa deslocado para baixo */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Animação */
         }
 
-
+        .container-segundo.visible {
+            opacity: 1; /* Visível */
+            transform: translateY(0); /* Volta à posição original */
+        }
 
         /* Cabeçalho */
         header {
-            background-color: #8b0000;
+            background-color: #a50000; /* Vermelho intenso */
             color: #fff;
             padding: 20px;
             text-align: center;
@@ -66,12 +70,11 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-left: 20%;
-
         }
 
         /* Seção de imagem e serviços */
         .news-item {
-            background-color:  #87ceeb;
+            background-color: #ff7f7f; /* Tom suave de vermelho */
             border-radius: 10px;
             color: white;
             padding: 15px;
@@ -79,6 +82,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+            border: 2px solid #d1d1d1; /* Borda suave */
         }
 
         .news-item img {
@@ -94,25 +99,22 @@
 
         .services-content-titulo {
             font-size: 30px;
-            color: #000000;
+            color: #ffffff;
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .services-content-texto {
-            font-size: 20px;
+            font-size: 30px;
             line-height: 1.6;
             text-align: center;
-            color: #000000;
+            color: #ffffff;
             margin: 20px 0;
-         
-           
-
         }
 
         /* Botão */
         .btn {
-            background-color: #0077b6; /*  Cor do botão */
+            background-color: #a50000; /* Cor do botão */
             color: white;
             border: none;
             padding: 12px 25px;
@@ -123,10 +125,12 @@
             width: 130px;
             margin: 20px auto;
             text-align: center;
+            transition: background-color 0.3s, transform 0.3s; /* Transição suave */
         }
 
         .btn:hover {
-            background-color: #b612ae; /* Muda cor ao passar por cima */
+            background-color: #ff4d4d; /* Mudança de cor ao passar por cima */
+            transform: scale(1.05); /* Aumenta levemente o botão */
         }
 
         footer {
@@ -135,6 +139,7 @@
             font-size: 12px;
         }
 
+       
         /* Responsividade */
         @media (max-width: 768px) {
             header {
@@ -188,72 +193,94 @@
         <header>
             Doe Sangue
         </header>
-                                    <br> <br>
-        <div class="subheader">"Um simples ato que poderá repercutir por várias gerações"</div>
-
+        <br><br>
+        <div class="subheader">"Um simples ato que pode ser repercutido por várias gerações"</div>
 
         <div class="news-layout">
             <div class="news-item">
                 <img src="https://cdn.prod.website-files.com/62cc56fc2b55bd9bafba3478/648a595935263e90541b8fc4_doar-sangue-faz-bem%20(1).jpg" alt="Imagem de doação de sangue">
                 <h2>Prepare-se bem antes de doar!</h2>
-                <p>Um boa noite de sono pelo menos seis horas por dia.</p>
+                <p>Uma boa noite de sono pelo menos seis horas por dia.</p>
                 <p>Se alimente adequadamente antes de doar!</p>
-                <p>Sempre se mantenha hidratado sempre!</p>
+                <p>Sempre se mantenha hidratado!</p>
             </div>
-     
+
             <div class="news-item">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQWUh_ZtfnLe6s_htNROTlhEwqbofInlOXMg&s" alt="Imagem de doação de sangue">
                 <h2>Requisitos</h2>
                 <p>Ter entre 16 e 69 anos e pesar mais de 50kg.</p>
-                <p>Não estar em jejum e evitar alimentação gordurosa;.</p>
-                <p>Apresentar documento oficial de identidade com foto;.</p>
+                <p>Não estar em jejum e evitar alimentação gordurosa.</p>
+                <p>Apresentar documento oficial de identidade com foto.</p>
             </div>
-                <br><br>
+
+            <br><br>
             <div class="news-item">
                 <img src="https://www12.senado.leg.br/radio/1/noticia/2024/09/26/27-de-setembro-e-o-dia-nacional-da-doacao-de-orgaos/@@images/ce2a7d7c-8b3f-47d9-b5a9-d9608e0fefba.jpeg">
-                <h2> Motivos para ir doar sangue</h2>
-                <p>Dia de folga. 
+                <h2>Motivos para ir doar sangue</h2>
+                <p>Dia de folga.
                     <br><br>
                     Protege o coração.
                     <br><br>
                     Menos risco de câncer.
                     <br><br>
                     Ajudar quem precisa.</p>
-                </div>
+            </div>
 
-                
-                <div class="news-item">
-                    <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg">
-                        <h2> Quantas vida pode salvar ?</h2>
-                            <p> A doação permite doar vida até quatro pessoa. </p>
-                            
-                            <p> Em um doação são coletados no máximo 450 ml.</p>
-                            
-                            <p> O Sangue coletado é reposto em 24 horas pelo organismo.</p>
-
-                        </div>
-       
-                </div>
-                      
+            <div class="news-item">
+                <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg">
+                <h2>Quantas vidas podem salvar?</h2>
+                <p>A doação permite doar vida até quatro pessoas.</p>
+                <p>Em uma doação são coletados no máximo 450 ml.</p>
+                <p>O sangue coletado é reposto em 24 horas pelo organismo.</p>
+            </div>
         </div>
-           
+
+        <br><br>
+
+        <div class="container-segundo" id="importance-section">
+            <div class="services-content-titulo">
+                <h2>Qual a importância de doar ?</h2>
+            </div>
+
+            <div class="services-content-texto">
+                    Cada gota é uma nova esperança. Ao doar, você se torna um herói anônimo,
+                     fazendo a diferença na vida de alguém que precisa. Doe sangue, doe vida!</p>
+            </div>
+        </div>
+
+     
         
-        <div class="services-content-titulo">
-            <h2>Qual a importância da doação de Sangue?</h2>
-        </div>
 
-        <div class="services-content-texto">
-            <p>
-                A doação de sangue é um ato de solidariedade que pode salvar vidas. Cada doação pode ajudar até quatro pessoas, oferecendo suporte em cirurgias, tratamentos de doenças e emergências. Além disso, a doação regular de sangue traz benefícios à saúde do doador, como a redução do risco de doenças cardiovasculares.
-            </p>
-        </div>
-        </div>
         <a href="dicas.html" class="btn">Voltar</a>
 
         <footer>
-            © 2024 - Sangue Bom      
+            © 2024 - Sangue Bom
         </footer>
     </div>
 
+    <script>
+        window.addEventListener('scroll', () => {
+            const container = document.getElementById('importance-section');
+            const rect = container.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                container.classList.add('visible');
+            }
+        });
+
+        const items = document.querySelectorAll('.news-item');
+
+        window.addEventListener('scroll', () => {
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    item.classList.add('visible'); // Adicione uma classe para animação
+                }
+            });
+        });
+    </script>
+
 </body>
+
 </html>
