@@ -13,71 +13,101 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-       
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
 
         .central-box {
-            background-color: #e0a4a4;
+            background-color: #8b1b1b;
             padding: 40px;
             border-radius: 20px;
             text-align: left;
             display: flex;
             flex-direction: column;
-            width: 500px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        } 
+        }
 
         h1 {
             text-align: center;
-            font-size: 24px;
+            font-size: 2rem;
             margin-bottom: 20px;
+			color: #fff;
         }
 
         .search-box {
             margin-bottom: 20px;
+			display: flex;
+			
         }
 
         input[type="text"] {
-            width: calc(100% - 20px);
-            padding: 10px;
+            width: 100%;
+            padding: 12px;
             border: 2px solid #8b1b1b;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 1rem;
+        }
+
+        .results-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none; /* Oculta inicialmente */
         }
 
         ul {
             list-style-type: none;
             padding: 0;
-            margin: 20px 0;
-            display: none; /* Esconde a lista inicialmente */
+            margin: 0;
         }
 
         li {
             margin: 10px 0;
-            font-size: 18px;
+            font-size: 1rem;
         }
 
-        .btn {
-            background-color: #8b1b1b;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            align-self: center;
-            margin-top: 20px;
-        }
-
+      /* Botão */
         .btn.voltar {
-            background-color: white;
-            color: #8b1b1b;
-            border: 2px solid #8b1b1b;
-            width: 50%;
-            padding: 10px 0;
+            background-color: #fff; /* Fundo branco */
+            color: #94150D; /* Texto vermelho */
+            border: 2px solid #94150D; /* Borda vermelha */
             margin-top: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn.voltar:hover {
+            background-color: #94150D; /* Fundo vermelho */
+            color: #fff; /* Texto branco */
+            transform: scale(1.1); /* Aumenta levemente o botão */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            input[type="text"] {
+                font-size: 0.9rem;
+            }
+
+            li {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 0;
+            }
         }
     </style>
 </head>
@@ -88,44 +118,55 @@
             <div class="search-box">
                 <input type="text" id="search" placeholder="Pesquise um termo..." oninput="searchTerms()">
             </div>
-            <ul id="terms-list">
-              
-            </ul>
-            <button class="btn voltar" onclick="window.location.href='dicas.html'">VOLTAR</button>
         </div>
+        <div class="results-box" id="results-box">
+            <ul id="terms-list"></ul>
+        </div>
+		<center>
+        <button class="btn voltar" onclick="window.location.href='inicio.html'">Voltar</button>
+		</center>
     </div>
 
     <script>
         const terms = [
-			{ term: "Eritrócitos", description: "Células do sangue que transportam oxigênio pelo corpo." }, 
-			{ term: "Hemoglobina", description: "Proteína nos glóbulos vermelhos que liga e transporta o oxigênio." },
-			{ term: "Hematócrito", description: "Percentual do volume do sangue que é composto por glóbulos vermelhos." },
-			{ term: "VCM (Volume Corpuscular Médio)", description: "Medida do tamanho médio dos glóbulos vermelhos." },
-			{ term: "HCM (Hemoglobina Corpuscular Média)", description: "Quantidade média de hemoglobina em cada glóbulo vermelho." },  
-			{ term: "CHCM (Concentração de Hemoglobina Corpuscular Média)", description: "Concentração média de hemoglobina nos glóbulos vermelhos." }, 
-			{ term: "RDW (Red Cell Distribution Width ou Largura da Distribuição dos Glóbulos Vermelhos)", description: "Medida da variação do tamanho dos glóbulos vermelhos." }, 
-			{ term: "Promielócitos", description: "Células jovens da medula óssea que se desenvolvem em glóbulos brancos." }, 
-			{ term: "Mielócitos", description: "Células que se transformam em diferentes tipos de glóbulos brancos." }, 
-			{ term: "Metamielócitos", description: "Células mais maduras que também se desenvolvem em glóbulos brancos." }, 
-			{ term: "Bastonetes", description: "Neutrófilos imaturos." }, 
-			{ term: "Segmentados", description: "Neutrófilos maduros que combatem infecções." }, 
-			{ term: "Eosinófilos", description: "Glóbulos brancos que ajudam a combater alergias e infecções parasitárias." }, 
-			{ term: "Basófilos", description: "Glóbulos brancos que participam de reações alérgicas." }, 
-			{ term: "Linfocíticos", description: "Células do sistema imunológico que ajudam a proteger o corpo contra infecções." }, 
-			{ term: "Linfoides", description: "Células que se transformam em macrófagos e ajudam a eliminar microrganismos." }, 
-			{ term: "Monócitos", description: "Células que se transformam em macrófagos e ajudam a eliminar microrganismos." }, 
-			{ term: "Plasmócitos", description: "Células que produzem anticorpos para combater infecções." }
-	
+            { term: "Eritrócitos", description: "Células do sangue que transportam oxigênio pelo corpo." },
+            { term: "Hemoglobina", description: "Proteína nos glóbulos vermelhos que liga e transporta o oxigênio." },
+            { term: "Hematócrito", description: "Percentual do volume do sangue que é composto por glóbulos vermelhos." },
+            { term: "VCM", description: "Medida do tamanho médio dos glóbulos vermelhos." },
+            { term: "HCM", description: "Quantidade média de hemoglobina em cada glóbulo vermelho." },
+            { term: "CHCM", description: "Concentração média de hemoglobina nos glóbulos vermelhos." },
+            { term: "RDW", description: "Medida da variação do tamanho dos glóbulos vermelhos." },
+            { term: "Promielócitos", description: "Células jovens da medula óssea que se desenvolvem em glóbulos brancos." },
+            { term: "Mielócitos", description: "Células que se transformam em diferentes tipos de glóbulos brancos." },
+            { term: "Metamielócitos", description: "Células mais maduras que também se desenvolvem em glóbulos brancos." },
+            { term: "Bastonetes", description: "Neutrófilos imaturos." },
+            { term: "Segmentados", description: "Neutrófilos maduros que combatem infecções." },
+            { term: "Eosinófilos", description: "Glóbulos brancos que ajudam a combater alergias e infecções parasitárias." },
+            { term: "Basófilos", description: "Glóbulos brancos que participam de reações alérgicas." },
+            { term: "Linfocíticos", description: "Células do sistema imunológico que ajudam a proteger o corpo contra infecções." },
+            { term: "Linfoides", description: "Células que se transformam em macrófagos e ajudam a eliminar microrganismos." },
+            { term: "Monócitos", description: "Células que se transformam em macrófagos e ajudam a eliminar microrganismos." },
+            { term: "Plasmócitos", description: "Células que produzem anticorpos para combater infecções." }
         ];
 
         function searchTerms() {
-            const query = document.getElementById('search').value.toLowerCase();
-            const filteredTerms = terms.filter(item => item.term.toLowerCase().includes(query));
+            const query = document.getElementById('search').value.toLowerCase().trim();
+            const resultsBox = document.getElementById('results-box');
+            if (query === "") {
+                resultsBox.style.display = 'none';
+                return;
+            }
+
+            const filteredTerms = terms.filter(item =>
+                item.term.toLowerCase().includes(query)
+            );
+
             displayTerms(filteredTerms);
         }
 
         function displayTerms(filteredTerms) {
             const termsList = document.getElementById('terms-list');
+            const resultsBox = document.getElementById('results-box');
             termsList.innerHTML = '';
 
             if (filteredTerms.length > 0) {
@@ -134,9 +175,9 @@
                     li.innerHTML = `<strong>${item.term}:</strong> ${item.description}`;
                     termsList.appendChild(li);
                 });
-                termsList.style.display = 'block'; 
+                resultsBox.style.display = 'block';
             } else {
-                termsList.style.display = 'none';
+                resultsBox.style.display = 'none';
             }
         }
     </script>

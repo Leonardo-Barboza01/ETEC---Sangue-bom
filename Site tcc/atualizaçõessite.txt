@@ -1,14 +1,4 @@
 atualizacões site fazer
 
-1- No input de consulta só permita numeros
-2 - Grafico no espaço vazio da tela consulta - Projeção 
-pós casa aberta
-3- na pagina consulta, caso o vue nÂo de certo, fazer um botao para todos os inputs e fazer uma tela que quando apertar o botao cai  nela com todos os reesultados
-4 - Banco e sua conexão 
-
-6 - Ajustar a tela de login co
-m o design do projeto oficial
-
-
-
- 
+**FAZER URGENTE
+If e else dos termos para os dois tipos de laboratorios mais famosos de bauru

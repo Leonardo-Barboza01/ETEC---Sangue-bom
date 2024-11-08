@@ -6,17 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doe Sangue</title>
     <style>
-        
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: 'Arial', sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/paper.png') repeat; 
-            font-size: 1em; 
+            background: url('https://www.transparenttextures.com/patterns/paper.png') repeat;
+            font-size: 1em;
         }
 
-       
         .newsletter-container {
             width: 100%;
             max-width: 1500px;
@@ -29,26 +27,25 @@
 
         .container-segundo {
             width: 75%;
-            max-width: 1300px; /* Limita a largura da página */
-            margin: auto; /* Centraliza a página */
+            max-width: 1300px;
+            margin: auto;
             background-color: #2664ac;
             padding: 20px;
             display: flex;
             flex-direction: column;
             border-radius: 90px;
-            opacity: 0; /* Inicialmente invisível */
-            transform: translatey(30px); /* Começa deslocado para baixo */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Animação */
+            opacity: 0;
+            transform: translatey(30px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
         .container-segundo.visible {
-            opacity: 1; /* Visível */
-            transform: translateY(0); /* Volta à posição original */
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Cabeçalho */
         header {
-            background-color: #a50000; /* Vermelho intenso */
+            background-color: #a50000;
             color: #fff;
             padding: 20px;
             text-align: center;
@@ -56,7 +53,6 @@
             font-weight: bold;
         }
 
-        /* Estilo do subtítulo */
         .subheader {
             color: #000000;
             text-align: center;
@@ -64,7 +60,6 @@
             margin-bottom: 20px;
         }
 
-        /* Layout de jornal */
         .news-layout {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -72,25 +67,24 @@
             margin-left: 20%;
         }
 
-        /* Seção de imagem e serviços */
         .news-item {
-            background-color: #ff7f7f; /* Tom suave de vermelho */
+            background-color: #ff7f7f;
             border-radius: 10px;
             color: white;
             padding: 15px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
-            border: 2px solid #d1d1d1; /* Borda suave */
+
+           
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 2px solid #d1d1d1;
         }
 
         .news-item img {
             width: 100%;
             border-radius: 10px;
-            max-height: 200px; /* Define uma altura máxima */
-            object-fit: cover; /* Faz com que a imagem cubra todo o espaço */
+            max-height: 200px;
+            object-fit: cover;
         }
 
         .news-item h2 {
@@ -111,79 +105,82 @@
             color: #ffffff;
             margin: 20px 0;
             margin-top: -30px;
-            
         }
 
-        /* Botão */
+        
         .btn {
-            background-color: #a50000; /* Cor do botão */
+            background-color: #fff;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 5px;
+            border: 2px solid #94150D;
+            padding: 9px 0;
+            font-size: 1.2rem;
+            border-radius: 20px;
             cursor: pointer;
-            display: block;
-            width: 130px;
+            width: 150px;
             margin: 20px auto;
             text-align: center;
-            transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+			margin-top: 10px;
+			transition: all 0.3s ease;
+        }
+		
+            
+
+        .btn.voltar {
+            background-color: white;
+            color: #8b1b1b;
+            border: 2px solid #8b1b1b;
         }
 
         .btn:hover {
-            background-color: #ff4d4d; /* Mudança de cor ao passar por cima */
-            transform: scale(1.05); /* Aumenta levemente o botão */
+            background-color: #94150D; /* Fundo vermelho */
+            color: #fff; /* Texto branco */
+            transform: scale(1.1); /* Aumenta levemente o botão */
         }
+		
+	
 
-        footer {
-            text-align: center;
-            color: #000000;
-            font-size: 12px;
-        }
-
-       
         /* Responsividade */
         @media (max-width: 768px) {
             header {
-                font-size: 28px; /* Reduz o tamanho do cabeçalho */
+                font-size: 28px;
             }
 
             .subheader {
-                font-size: 20px; /* Reduz o tamanho do subtítulo */
+                font-size: 20px;
             }
 
             .services-content-titulo {
-                font-size: 24px; /* Reduz o tamanho do título de serviços */
+                font-size: 24px;
             }
 
             .services-content-texto {
-                font-size: 18px; /* Reduz o tamanho do texto */
+                font-size: 18px;
             }
 
             .btn {
-                width: 100%; /* Botão ocupa a largura total */
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
             header {
-                font-size: 24px; /* Reduz ainda mais o tamanho do cabeçalho */
+                font-size: 24px;
             }
 
             .subheader {
-                font-size: 18px; /* Reduz ainda mais o tamanho do subtítulo */
+                font-size: 18px;
             }
 
             .services-content-titulo {
-                font-size: 20px; /* Reduz ainda mais o tamanho do título de serviços */
+                font-size: 20px;
             }
 
             .services-content-texto {
-                font-size: 16px; /* Reduz ainda mais o tamanho do texto */
+                font-size: 16px;
             }
 
             .news-item {
-                padding: 10px; /* Ajusta o padding para telas pequenas */
+                padding: 10px;
             }
         }
     </style>
@@ -245,19 +242,15 @@
             </div>
 
             <div class="services-content-texto">
-                    Cada gota é uma nova esperança. Ao doar, você se torna um herói anônimo,
-                     fazendo a diferença na vida de alguém que precisa. Doe sangue, doe vida!</p>
+                Cada gota é uma nova esperança. Ao doar, você se torna um herói anônimo,
+                fazendo a diferença na vida de alguém que precisa. Doe sangue, doe vida!</p>
             </div>
         </div>
 
-     
-        
 
-        <a href="dicas.html" class="btn">Voltar</a>
+        <a href="inicio.html" class="btn voltar">Voltar</a>
 
-        <footer>
-            © 2024 - Sangue Bom
-        </footer>
+       
     </div>
 
     <script>

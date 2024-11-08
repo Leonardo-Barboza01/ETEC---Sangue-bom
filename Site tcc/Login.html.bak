@@ -86,12 +86,9 @@
        
 
         .btn.voltar:hover {
-            background-color: #; /* Fundo vermelho */
+            background-color: #fff; /* Fundo vermelho */
             color: #fff; /* Texto branco */
             transform: scale(1.1); /* Aumenta levemente o botão */
-        }
-		 .description.show, .login-btn.show {
-            opacity: 1;
         }
     </style>
 </head>

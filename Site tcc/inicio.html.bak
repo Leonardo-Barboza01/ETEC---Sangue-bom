@@ -92,24 +92,17 @@
         }
 
         .login-btn {
-            background-color: #fff; /* Fundo branco */
-            color: #94150D; /* Texto vermelho */
-            border: 2px solid #94150D; /* Borda vermelha */
+            background-color: #fff; /* Vermelho escuro */
+            color: #000; /* Verde claro para o texto */
+            border: 2px solid #8b1b1b;
             margin-top: 10px;
-            font-size: 16px;
-            border-radius: 25px;
-            padding: 10px 30px;
-            transition: all 0.3s ease;
         }
-
-       
 
         .login-btn:hover {
-            background-color: #94150D; /* Fundo vermelho */
-            color: #fff; /* Texto branco */
-            transform: scale(1.1); /* Aumenta levemente o botão */
+            background-color: #fff; /* Fundo verde suave no hover */
+            color: #000; /* Texto vermelho escuro */
+            border-color: #8b1b1b;
         }
-        
 
         .description.show, .login-btn.show {
             opacity: 1;

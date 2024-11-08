@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Consulta</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         * {
             font-family: Poppins, sans-serif;
@@ -15,103 +18,126 @@
 
         body {
             background-color: #EEE2E2;
-            padding: 20px;
+            padding: 60px;
         }
 
         .main {
             background-color: white;
             border-top: 12px solid #94150D;
             border-radius: 10px;
-            padding: 20px;
-            text-align: center;
+            padding: 15px;
             margin-bottom: 20px;
-            max-width: 1200px;
+            max-width: 1550px;
             margin: 20px auto;
         }
 
         .main h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
-        .series-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .series {
-            width: 100%;
-            max-width: 600px;
+        .series, .resultado {
             margin: 10px;
             padding: 20px;
             border-radius: 20px;
+        }
+
+        .series {
             background-color: #eed3d1;
         }
 
-        .series h3 {
+        .resultado {
+            background-color: #eed3d1 ;
+        }
+        
+         .cadastro {
+            width: 55%; 
+        }
+
+        .series h3, .resultado h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
 
         .seriesvermelha {
-            color: red;
-            font-size: 1.5rem;
+            font-size: 24px;
+            color: darkred;
             font-weight: bold;
         }
 
         .seriesbranca {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: bold;
-            color: black;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             border: 2px solid #94150D;
             border-radius: 30px;
             width: 90%;
-            padding: 10px;
+            padding: 12px 20px;
             margin-bottom: 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease-in-out;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        button {
-            padding: 10px 20px;
-            border-radius: 30px;
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #94150D;
+            box-shadow: 0 4px 10px rgba(148, 21, 13, 0.3);
+            transform: translateY(-2px);
+        }
+
+        input[type="text"]::placeholder, input[type="number"]::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Botão */
+        .btn.voltar {
+            background-color: #fff;
+            color: #94150D;
+            border: 2px solid #94150D;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn.voltar:hover {
             background-color: #94150D;
-            border: none;
+            color: #fff;
+            transform: scale(1.1);
+        }
+      
+	  
+        .btn-laboratorio {
+            background-color: #94150D;
             color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-right: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #452286;
+        .btn-laboratorio.selected {
+            background-color: #5a0d00; /* Cor mais escura quando selecionado */
+            transform: scale(1.05);
         }
 
-        .policy {
-            font-size: 14px;
-            color: grey;
-            text-align: center;
-            margin-top: 20px;
+        .btn-laboratorio:hover {
+            background-color: #5a0d00;
         }
-
-        .policy a {
-            text-decoration: none;
-            color: grey;
-            text-decoration: underline;
-        }
-
+        /* Responsividade */
         @media (max-width: 1000px) {
             .main h1 {
                 font-size: 2rem;
-            }
-
-            .series {
-                width: 100%;
-            }
-
-            .series h3 {
-                font-size: 1rem;
             }
         }
 
@@ -120,471 +146,312 @@
                 font-size: 1.5rem;
             }
 
-            .series h3 {
-                font-size: 0.9rem;
-            }
-
             button {
                 padding: 8px 16px;
             }
         }
-
-        .submit {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
-    <div class="main">
-        <h1>Insira seus valores de referência</h1>
-        <div class="series-container">
-            <div class="series">
-			<br><br>
-                <p class="seriesvermelha">SÉRIE VERMELHA (ERITOGRAMA)</p>
-				<br><br><br>
-                <div class="input">
-                    <h3>ERITRÓCITOS</h3>
-                    <input type="text" id="ValorEritrocitos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularEritrocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoEritrocitos"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>HEMOGLOBINA</h3>
-                    <input type="text" id="ValorHemoglobina" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularHemoglobina()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoHemoglobina"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>HEMATÓCRITO</h3>
-                    <input type="text" id="ValorHematocrito" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularHematocrito()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoHematocrito"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>VCM</h3>
-                    <input type="text" id="ValorVCM" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularVCM()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoVCM"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>HCM</h3>
-                    <input type="text" id="ValorHCM" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularHCM()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoHCM"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>CHCM</h3>
-                    <input type="text" id="ValorCHCM" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularCHCM()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoCHCM"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>RDW</h3>
-                    <input type="text" id="ValorRDW" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularRDW()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoRDW"></div>
-                </div><br><br>
-                
-               
+    <div class="main" id="app">
+        <center>
+            <h1>Insira seus valores de referência</h1>
+        </center>
+        <br><br>
+        <div class="row">
+            <!-- Botões para escolher o laboratório -->
+           <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
+                <button 
+                    class="btn-laboratorio" 
+                    :class="{ selected: laboratorio === 'Laboratório A' }" 
+                    @click="selecionarLaboratorio('Laboratório A')">
+                    Laboratório A
+                </button>
+                <button 
+                    class="btn-laboratorio" 
+                    :class="{ selected: laboratorio === 'Laboratório B' }" 
+                    @click="selecionarLaboratorio('Laboratório B')">
+                    Laboratório B
+                </button>
             </div>
-            
-            <div class="series">
-			<br><br>
-                <p class="seriesbranca">SÉRIE BRANCA (LEUCOGRAMA)</p>
-				<br><br><br>
-                <div class="input">
-                    <h3>LEUCÓCITOS</h3>
-                    <input type="text" id="ValorLeucocitos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularLeucocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoLeucocitos"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>PROMIELÓCITOS</h3>
-                    <input type="text" id="ValorPromielocitos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularPromielocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoPromielocitos"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>MIELÓCITOS</h3>
-                    <input type="text" id="ValorMielocitos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularMielocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoMielocitos"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>METAMIELÓCITOS</h3>
-                    <input type="text" id="ValorMetamielocitos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularMetamielocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoMetamielocitos"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>BASTONETES</h3>
-                    <input type="text" id="ValorBastonetes" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularBastonetes()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoBastonetes"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>SEGMENTADOS</h3>
-                    <input type="text" id="ValorSegmentados" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularSegmentados()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoSegmentados"></div>
-                </div><br><br>
-                
-                <div class="input">
-                    <h3>EOSINÓFILOS</h3>
-                    <input type="text" id="ValorEosinofilos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularEosinofilos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoEosinofilos"></div>
-                    </div><br><br>
-                
-                <div class="input">
-                    <h3>BASÓFILOS</h3>
-                    <input type="text" id="ValorBasofilos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calcularBasofilos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoBasofilos"></div>
-					</div><br><br>
-					
-				 <div class="input">
-                    <h3>LINF. TÍPICOS</h3>
-                     <input type="text" id="Valortipicos" placeholder="Digite o valor de referência..." />
-                    <button onclick="calculartipicos()">Calcular</button>
-					<br><br>
-                    <div id="Resultadotipicos"></div>
-					</div><br><br>
-				
-                <div class="input">
-                    <h3>LINF. ATÍPICOS</h3>
-					<input type="text" id="Valoratipicos" placeholder="Digite o valor de referência..." />
-                     <button onclick="calcularatipicos()">Calcular</button>
-					<br><br>
-                    <div id="Resultadoatipicos"></div>
-					</div><br><br>
-				
-                <div class="input">
-                    <h3>MONÓCITOS</h3>
-                    <input type="text" id="ValorMonocitos" placeholder="Digite o valor de referência..." />
-                     <button onclick="calcularMonocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoMonocitos"></div>
-					</div><br><br>
-				
-                <div class="input">
-                    <h3>PLASMÓCITOS</h3>
-                   <input type="text" id="ValorPlasmocitos" placeholder="Digite o valor de referência..." />
-                     <button onclick="calcularPlasmocitos()">Calcular</button>
-					<br><br>
-                    <div id="ResultadoPlasmocitos"></div>
-					</div><br><br>
-					
+            <br><br>
+
+            <!-- Coluna para Inputs (Série Vermelha e Branca) -->
+            <div class="col-md-6">
+                <div class="series">
+                    <p class="seriesvermelha">SÉRIE VERMELHA (ERITOGRAMA)</p>
+                    <!-- Inputs da série vermelha -->
+                    <div>
+                        <h3>ERITRÓCITOS</h3>
+                        <input type="number" v-model="valores.eritrocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>HEMOGLOBINA</h3>
+                        <input type="number" v-model="valores.hemoglobina" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>HEMATÓCRITO</h3>
+                        <input type="number" v-model="valores.hematocrito" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>VCM</h3>
+                        <input type="number" v-model="valores.vcm" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>HCM</h3>
+                        <input type="number" v-model="valores.hcm" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>CHCM</h3>
+                        <input type="number" v-model="valores.chcm" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>RDW</h3>
+                        <input type="number" v-model="valores.rdw" placeholder="Digite o valor de referência..." />
+                    </div>
                 </div>
+
+                <div class="series">
+                    <p class="seriesbranca">SÉRIE BRANCA (LEUCOGRAMA)</p>
+                    <!-- Inputs da série branca -->
+                    <div>
+                        <h3>LEUCÓCITOS</h3>
+                        <input type="number" v-model="valores.leucocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>PROMIELÓCITOS</h3>
+                        <input type="number" v-model="valores.promielocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>MIELÓCITOS</h3>
+                        <input type="number" v-model="valores.mielocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>METAMIELÓCITOS</h3>
+                        <input type="number" v-model="valores.metamielocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>BASTONETES</h3>
+                        <input type="number" v-model="valores.bastonetes" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>SEGMENTADOS</h3>
+                        <input type="number" v-model="valores.segmentados" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>EOSINÓFILOS</h3>
+                        <input type="number" v-model="valores.eosinofilos" placeholder="Digite o valor de referência..." />
+                    </div>
+                    <div>
+                        <h3>BASÓFILOS</h3>
+                        <input type="number" v-model="valores.basofilos" placeholder="Digite o valor de referência..." />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna para Resultados -->
+            <div class="col-md-6">
+                <div class="resultado">
+                    <p class="seriesvermelha">RESULTADOS SÉRIE VERMELHA</p>
+                    <!-- Resultados da série vermelha -->
+                    <div v-if="valores.eritrocitos !== ''">
+                        <h3>ERITRÓCITOS: {{ valores.eritrocitos }} - {{ calcularValor('eritrocitos') }}</h3>
+                    </div>
+                    <div v-if="valores.hemoglobina !== ''">
+                        <h3>HEMOGLOBINA: {{ valores.hemoglobina }} - {{ calcularValor('hemoglobina') }}</h3>
+                    </div>
+                    <div v-if="valores.hematocrito !== ''">
+                        <h3>HEMATÓCRITO: {{ valores.hematocrito }} - {{ calcularValor('hematocrito') }}</h3>
+                    </div>
+                    <div v-if="valores.vcm !== ''">
+                        <h3>VCM: {{ valores.vcm }} - {{ calcularValor('vcm') }}</h3>
+                    </div>
+                    <div v-if="valores.hcm !== ''">
+                        <h3>HCM: {{ valores.hcm }} - {{ calcularValor('hcm') }}</h3>
+                    </div>
+                    <div v-if="valores.chcm !== ''">
+                        <h3>CHCM: {{ valores.chcm }} - {{ calcularValor('chcm') }}</h3>
+                    </div>
+                    <div v-if="valores.rdw !== ''">
+                        <h3>RDW: {{ valores.rdw }} - {{ calcularValor('rdw') }}</h3>
+                    </div>
+                </div>
+
+                <div class="resultado">
+                    <p class="seriesbranca">RESULTADOS SÉRIE BRANCA</p>
+                    <!-- Resultados da série branca -->
+                    <div v-if="valores.leucocitos !== ''">
+                        <h3>LEUCÓCITOS: {{ valores.leucocitos }} - {{ calcularValor('leucocitos') }}</h3>
+                    </div>
+                    <div v-if="valores.promielocitos !== ''">
+                        <h3>PROMIELÓCITOS: {{ valores.promielocitos }} - {{ calcularValor('promielocitos') }}</h3>
+                    </div>
+                    <div v-if="valores.mielocitos !== ''">
+                        <h3>MIELÓCITOS: {{ valores.mielocitos }} - {{ calcularValor('mielocitos') }}</h3>
+                    </div>
+                    <div v-if="valores.metamielocitos !== ''">
+                        <h3>METAMIELÓCITOS: {{ valores.metamielocitos }} - {{ calcularValor('metamielocitos') }}</h3>
+                    </div>
+                    <div v-if="valores.bastonetes !== ''">
+                        <h3>BASTONETES: {{ valores.bastonetes }} - {{ calcularValor('bastonetes') }}</h3>
+                    </div>
+                    <div v-if="valores.segmentados !== ''">
+                        <h3>SEGMENTADOS: {{ valores.segmentados }} - {{ calcularValor('segmentados') }}</h3>
+                    </div>
+                    <div v-if="valores.eosinofilos !== ''">
+                        <h3>EOSINÓFILOS: {{ valores.eosinofilos }} - {{ calcularValor('eosinofilos') }}</h3>
+                    </div>
+                    <div v-if="valores.basofilos !== ''">
+                        <h3>BASÓFILOS: {{ valores.basofilos }} - {{ calcularValor('basofilos') }}</h3>
+                    </div>
                 </div>
             </div>
         </div>
+	<br>
+        <div  class="cadastro">
+            <h3>Nome</h3>
+            <input type="text" v-model="usuario.nome" placeholder="Digite seu nome" />
+            <h3>Idade</h3>
+            <input type="number" v-model="usuario.idade" placeholder="Digite sua idade" />
+        </div>
+	<br>
+        <!-- Botões para Voltar e Gerar PDF -->
+        <center>
+            <button class="btn voltar" onclick="window.location.href='inicio.html'">Voltar</button>
+            <button class="btn voltar" @click="gerarPDF">Gerar PDF</button>
+        </center>
     </div>
 
-    
-
-   
     <script>
-        function calcularEritrocitos() {
-            let eritrocitos = parseFloat(document.getElementById("ValorEritrocitos").value);
-            let resultado = document.getElementById("ResultadoEritrocitos");
-            resultado.innerHTML = "";
+        new Vue({
+            el: '#app',
+            data: {
+                usuario: {
+                    nome: '',
+                    idade: ''
+                },
+                valores: {
+                    eritrocitos: '',
+                    hemoglobina: '',
+                    hematocrito: '',
+                    vcm: '',
+                    hcm: '',
+                    chcm: '',
+                    rdw: '',
+                    leucocitos: '',
+                    promielocitos: '',
+                    mielocitos: '',
+                    metamielocitos: '',
+                    bastonetes: '',
+                    segmentados: '',
+                    eosinofilos: '',
+                    basofilos: ''
+                },
+                laboratorio: 'Não selecionado'
+            },
+            methods: {
+                selecionarLaboratorio(laboratorio) {
+                    this.laboratorio = laboratorio;
+                },
+                calcularValor(tipo) {
+                    let valor = parseFloat(this.valores[tipo]);
+                    if (isNaN(valor)) return '';
+                    
+                    switch (this.laboratorio) {
+                        case 'Laboratório A':
+                            switch (tipo) {
+                                case 'eritrocitos':
+                                    return valor < 4.1 ? "Baixo" : valor <= 5.10 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hemoglobina':
+                                    return valor < 13 ? "Baixo" : valor <= 17 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hematocrito':
+                                    return valor < 40 ? "Baixo" : valor <= 50 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'vcm':
+                                    return valor < 83 ? "Baixo" : valor <= 101 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hcm':
+                                    return valor < 27 ? "Baixo" : valor <= 31 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'chcm':
+                                    return valor < 31.5 ? "Baixo" : valor <= 34.5 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'rdw':
+                                    return valor < 11.6 ? "Baixo" : valor <= 14 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'leucocitos':
+                                    return valor < 4000 ? "Baixo" : valor <= 10000 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'promielocitos':
+                                case 'mielocitos':
+                                case 'metamielocitos':
+                                case 'bastonetes':
+                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'segmentados':
+                                    return valor < 1500 ? "Baixo" : valor <= 7500 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'eosinofilos':
+                                    return valor < 0 ? "Baixo" : valor <= 500 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'basofilos':
+                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
+                                default:
+                                    return '';
+                            }
+                        case 'Laboratório B':
+                            
+                            switch (tipo) {
+                                case 'eritrocitos':
+                                    return valor < 4.2 ? "Baixo" : valor <= 5.20 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hemoglobina':
+                                    return valor < 12.5 ? "Baixo" : valor <= 16.5 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hematocrito':
+                                    return valor < 41 ? "Baixo" : valor <= 51 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'vcm':
+                                    return valor < 82 ? "Baixo" : valor <= 100 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'hcm':
+                                    return valor < 26 ? "Baixo" : valor <= 30 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'chcm':
+                                    return valor < 32 ? "Baixo" : valor <= 34 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'rdw':
+                                    return valor < 11.8 ? "Baixo" : valor <= 13.5 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'leucocitos':
+                                    return valor < 4500 ? "Baixo" : valor <= 9500 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'promielocitos':
+                                case 'mielocitos':
+                                case 'metamielocitos':
+                                case 'bastonetes':
+                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'segmentados':
+                                    return valor < 2000 ? "Baixo" : valor <= 8000 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'eosinofilos':
+                                    return valor < 0 ? "Baixo" : valor <= 600 ? "Normal, adequado" : "Inadequado, alto demais";
+                                case 'basofilos':
+                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
+                                default:
+                                    return '';
+                            }
+                        default:
+                            return '';
+                    }
+                },
+                gerarPDF() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
 
-            if (eritrocitos < 4.5) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (eritrocitos >= 4.5 && eritrocitos <= 5.59) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
+                    // Adiciona os dados do usuário e dos valores
+					doc.text(`Laboratório: ${this.laboratorio}`, 20, 20);
+                    doc.text(`Nome: ${this.usuario.nome}`, 20, 30);
+                    doc.text(`Idade: ${this.usuario.idade}`, 20, 40);
+                    doc.text('Valores do Hemograma:', 20, 60);
+
+
+                    // Adiciona os valores inseridos e os resultados calculados
+                    Object.keys(this.valores).forEach((campo, index) => {
+                        let valor = this.valores[campo];
+                        if (valor) {
+                            const resultado = this.calcularValor(campo);
+                            doc.text(`${campo.toUpperCase()}: ${valor} - ${resultado}`, 20, 50 + index * 10);
+                        }
+                    });
+
+                    // Gera o PDF
+                    doc.save('resultado_hemograma.pdf');
+                }
             }
-        }
-
-        function calcularHemoglobina() {
-            let hemoglobina = parseFloat(document.getElementById("ValorHemoglobina").value);
-            let resultado = document.getElementById("ResultadoHemoglobina");
-            resultado.innerHTML = "";
-
-            if (hemoglobina < 13) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (hemoglobina >= 13 && hemoglobina <= 17) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularHematocrito() {
-            let hematocrito = parseFloat(document.getElementById("ValorHematocrito").value);
-            let resultado = document.getElementById("ResultadoHematocrito");
-            resultado.innerHTML = "";
-
-            if (hematocrito < 40) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (hematocrito >= 40 && hematocrito <= 50) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularVCM() {
-            let vcm = parseFloat(document.getElementById("ValorVCM").value);
-            let resultado = document.getElementById("ResultadoVCM");
-            resultado.innerHTML = "";
-
-            if (vcm < 83) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (vcm >= 80 && vcm <= 101) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularHCM() {
-            let hcm = parseFloat(document.getElementById("ValorHCM").value);
-            let resultado = document.getElementById("ResultadoHCM");
-            resultado.innerHTML = "";
-
-            if (hcm < 27) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (hcm >= 27 && hcm <= 31) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularCHCM() {
-            let chcm = parseFloat(document.getElementById("ValorCHCM").value);
-            let resultado = document.getElementById("ResultadoCHCM");
-            resultado.innerHTML = "";
-
-            if (chcm < 31.5) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (chcm >= 31.5 && chcm <= 34.5) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularRDW() {
-            let rdw = parseFloat(document.getElementById("ValorRDW").value);
-            let resultado = document.getElementById("ResultadoRDW");
-            resultado.innerHTML = "";
-
-            if (rdw < 11.6) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (rdw >= 11.5 && rdw <= 14) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-
-        function calcularLeucocitos() {
-            let leucocitos = parseFloat(document.getElementById("ValorLeucocitos").value);
-            let resultado = document.getElementById("ResultadoLeucocitos");
-            resultado.innerHTML = "";
-
-            if (leucocitos < 4000) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (leucocitos >= 4000 && leucocitos <= 10000) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularPromielocitos() {
-            let promielocitos = parseFloat(document.getElementById("ValorPromielocitos").value);
-            let resultado = document.getElementById("ResultadoPromielocitos");
-            resultado.innerHTML = "";
-
-            if (promielocitos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (promielocitos == 0) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularMielocitos() {
-            let mielocitos = parseFloat(document.getElementById("ValorMielocitos").value);
-            let resultado = document.getElementById("ResultadoMielocitos");
-            resultado.innerHTML = "";
-
-            if (mielocitos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (mielocitos == 0) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularMetamielocitos() {
-            let metamielocitos = parseFloat(document.getElementById("ValorMetamielocitos").value);
-            let resultado = document.getElementById("ResultadoMetamielocitos");
-            resultado.innerHTML = "";
-
-            if (metamielocitos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (metamielocitos >= 0 && metamielocitos <= 1) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularBastonetes() {
-            let bastonetes = parseFloat(document.getElementById("ValorBastonetes").value);
-            let resultado = document.getElementById("ResultadoBastonetes");
-            resultado.innerHTML = "";
-
-            if (bastonetes < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (bastonetes >= 0 && bastonetes <= 10) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularSegmentados() {
-            let segmentados = parseFloat(document.getElementById("ValorSegmentados").value);
-            let resultado = document.getElementById("ResultadoSegmentados");
-            resultado.innerHTML = "";
-
-            if (segmentados < 48) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if ( segmentados >= 48 && segmentados <= 73) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularEosinofilos() {
-            let eosinofilos = parseFloat(document.getElementById("ValorEosinofilos").value);
-            let resultado = document.getElementById("ResultadoEosinofilos");
-            resultado.innerHTML = "";
-
-            if (eosinofilos < 1) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (eosinofilos >= 1 && eosinofilos <= 6) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        function calcularBasofilos() {
-            let basofilos = parseFloat(document.getElementById("ValorBasofilos").value);
-            let resultado = document.getElementById("ResultadoBasofilos");
-            resultado.innerHTML = "";
-
-            if (basofilos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (basofilos >= 0 && basofilos <= 2) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-		
-		 function calculartipicos() {
-            let tipicos = parseFloat(document.getElementById("Valortipicos").value);
-            let resultado = document.getElementById("Resultadotipicos");
-            resultado.innerHTML = "";
-
-            if (tipicos < 27) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (tipicos >= 27 && tipicos <= 42) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-		
-		 function calcularatipicos() {
-            let atipicos = parseFloat(document.getElementById("Valoratipicos").value);
-            let resultado = document.getElementById("Resultadoatipicos");
-            resultado.innerHTML = "";
-
-            if (atipicos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (atipicos >= 0 && atipicos <= 1) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-		
-		
-		 function calcularMonocitos() {
-            let Monocitos = parseFloat(document.getElementById("ValorMonocitos").value);
-            let resultado = document.getElementById("ResultadoMonocitos");
-            resultado.innerHTML = "";
-
-            if (Monocitos < 2) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (Monocitos >= 2 && Monocitos <= 12) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-		
-		function calcularPlasmocitos() {
-            let Plasmocitos = parseFloat(document.getElementById("ValorPlasmocitos").value);
-            let resultado = document.getElementById("ResultadoPlasmocitos");
-            resultado.innerHTML = "";
-
-            if (Plasmocitos < 0) {
-                resultado.innerHTML = "Baixo, não adequado";
-            } else if (Plasmocitos >= 0 && Plasmocitos <= 0) {
-                resultado.innerHTML = "Normal, adequado";
-            } else {
-                resultado.innerHTML = "Inadequado, alto demais";
-            }
-        }
-
-        
+        });
     </script>
-	 <div class="submit">
-        <button onclick="window.location.href='opcoes.html'">VOLTAR</button>
-    </div>
 </body>
 </html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Cadastro de Referências</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #EEE2E2;
+            padding: 60px;
+        }
+
+        .main {
+            background-color: white;
+            border-top: 12px solid #94150D;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            max-width: 1550px;
+            margin: 20px auto;
+        }
+
+        .main h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .input-field {
+            margin-bottom: 10px;
+        }
+
+        .btn-voltar {
+            background-color: #fff; /* Fundo branco */
+            color: #94150D; /* Texto vermelho */
+            border: 2px solid #94150D; /* Borda vermelha */
+            margin-top: 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            background-color: #94150D; /* Fundo vermelho */
+            color: #fff; /* Texto branco */
+            transform: scale(1.1); /* Aumenta levemente o botão */
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main" id="app">
+        <center>
+            <h1>Cadastro de Referências Médicas</h1>
+        </center>
+        <div>
+            <form @submit.prevent="salvarCadastro">
+                <div class="row">
+                    <!-- Dados pessoais -->
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" v-model="cadastro.nome" class="form-control" placeholder="Digite seu nome" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" v-model="cadastro.email" class="form-control" placeholder="Digite seu email" required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dados das referências -->
+                <div class="series">
+                    <h3>SÉRIE VERMELHA (ERITOGRAMA)</h3>
+                    <div class="input-field">
+                        <label for="eritrocitos">ERITRÓCITOS:</label>
+                        <input type="text" v-model="cadastro.eritrocitos" @input="validarInput($event, 'eritrocitos')" class="form-control" placeholder="Digite o valor de referência..." />
+                        <p v-show="erros.eritrocitos" class="error-message">Por favor, insira um número válido.</p>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="hemoglobina">HEMOGLOBINA:</label>
+                        <input type="text" v-model="cadastro.hemoglobina" @input="validarInput($event, 'hemoglobina')" class="form-control" placeholder="Digite o valor de referência..." />
+                        <p v-show="erros.hemoglobina" class="error-message">Por favor, insira um número válido.</p>
+                    </div>
+
+                    <!-- Outros campos para a Série Vermelha -->
+
+                    <h3>SÉRIE BRANCA (LEUCOGRAMA)</h3>
+
+                    <div class="input-field">
+                        <label for="leucocitos">LEUCÓCITOS:</label>
+                        <input type="text" v-model="cadastro.leucocitos" @input="validarInput($event, 'leucocitos')" class="form-control" placeholder="Digite o valor de referência..." />
+                        <p v-show="erros.leucocitos" class="error-message">Por favor, insira um número válido.</p>
+                    </div>
+
+                    <!-- Outros campos para a Série Branca -->
+
+                </div>
+
+                <center>
+                    <button type="submit" class="btn btn-primary">Salvar Cadastro</button>
+                </center>
+            </form>
+
+            <!-- Resultado do Cadastro -->
+            <div v-if="cadastros.length > 0" class="mt-4">
+                <h3>Dados Cadastrados:</h3>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(cadastro, index) in cadastros" :key="index">
+                        <strong>{{ cadastro.nome }}</strong> - {{ cadastro.email }}
+                        <p>Série Vermelha: Eritrócitos - {{ cadastro.eritrocitos }} Hemoglobina - {{ cadastro.hemoglobina }}</p>
+                        <p>Série Branca: Leucócitos - {{ cadastro.leucocitos }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <center>
+            <button class="btn-voltar" onclick="window.location.href='inicio.html'">Voltar</button>
+        </center>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                cadastro: {
+                    nome: '',
+                    email: '',
+                    eritrocitos: '',
+                    hemoglobina: '',
+                    leucocitos: ''
+                    // Adicione outros campos conforme necessário
+                },
+                cadastros: [],
+                erros: {
+                    eritrocitos: false,
+                    hemoglobina: false,
+                    leucocitos: false
+                    // Adicione outros campos de erro conforme necessário
+                }
+            },
+            methods: {
+                salvarCadastro() {
+                    // Verifica se há algum erro nos campos antes de salvar
+                    if (this.erros.eritrocitos || this.erros.hemoglobina || this.erros.leucocitos) {
+                        alert('Corrija os erros antes de salvar!');
+                        return;
+                    }
+
+                    // Adiciona o cadastro à lista
+                    this.cadastros.push({ ...this.cadastro });
+                    // Limpa os campos após o envio
+                    this.cadastro = {
+                        nome: '',
+                        email: '',
+                        eritrocitos: '',
+                        hemoglobina: '',
+                        leucocitos: ''
+                        // Limpar outros campos conforme necessário
+                    };
+                    alert('Cadastro realizado com sucesso!');
+                },
+
+                validarInput(event, campo) {
+                    const valor = event.target.value;
+                    const numeroValido = !isNaN(valor) && valor.trim() !== '';
+                    this.erros[campo] = !numeroValido;
+
+                    if (!numeroValido) {
+                        this.cadastro[campo] = '';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
