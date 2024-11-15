@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doe Sangue - Juntos Somos Mais Fortes</title>
+    <style>
+        /* Estilo geral da página */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5; /* Cor de fundo clara */
+            font-size: 1em;
+        }
+
+        /* Container principal da página */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #c0392b; /* Vermelho intenso */
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+            font-size: 40px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        /* Subtítulo */
+        .subheader {
+            font-size: 20px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Grid de conteúdo */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 15px;
+        }
+
+        /* Item de conteúdo */
+        .content-item {
+            background-color: #ff4f58; /* Tom suave de vermelho */
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 5px solid #ffffff;
+        }
+
+        .content-item h3 {
+            margin: 15px;
+            font-size: 22px;
+        }
+
+        .content-item p {
+            margin: 0 15px 15px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Seção "Por que doar?" */
+        .important-section {
+            text-align: center;
+            background-color: #c0392b;
+            color: white;
+            padding: 40px;
+            margin-top: 40px;
+            border-radius: 10px;
+            opacity: 0; /* Inicialmente invisível */
+            transform: translateY(30px); /* Deslocada para baixo */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Animação */
+        }
+
+        .important-section.visible {
+            opacity: 1; /* Tornar visível */
+            transform: translateY(0); /* Voltar à posição original */
+        }
+
+        .important-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .important-section p {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* Botão */
+        .btn {
+            background-color: #c0392b;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #e74c3c;
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #f1f1f1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                font-size: 32px;
+            }
+
+            .subheader {
+                font-size: 18px;
+            }
+
+            .content-item h3 {
+                font-size: 20px;
+            }
+
+            .important-section h2 {
+                font-size: 28px;
+            }
+
+            .important-section p {
+                font-size: 16px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Doe Sangue</h1>
+        </header>
+
+        <div class="subheader">
+            "Um simples ato que pode ser repercutido por várias gerações."
+        </div>
+
+        <div class="content-grid">
+            <!-- Primeira Seção -->
+            <div class="content-item">
+                <img src="https://cdn.prod.website-files.com/62cc56fc2b55bd9bafba3478/648a595935263e90541b8fc4_doar-sangue-faz-bem%20(1).jpg" alt="Preparação para doação de sangue">
+                <h3>Prepare-se para Doar</h3>
+                <p>Uma boa noite de sono e uma alimentação saudável são essenciais antes de realizar a doação. Além disso, mantenha-se hidratado.</p>
+            </div>
+
+            <!-- Segunda Seção -->
+            <div class="content-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQWUh_ZtfnLe6s_htNROTlhEwqbofInlOXMg&s" alt="Requisitos para doação de sangue">
+                <h3>Requisitos para Doar</h3>
+                <p>Para doar, você deve ter entre 16 e 69 anos, pesar mais de 50kg e não estar em jejum. Além disso, é necessário apresentar um documento de identidade.</p>
+            </div>
+
+            <!-- Terceira Seção -->
+            <div class="content-item">
+                <img src="https://www12.senado.leg.br/radio/1/noticia/2024/09/26/27-de-setembro-e-o-dia-nacional-da-doacao-de-orgaos/@@images/ce2a7d7c-8b3f-47d9-b5a9-d9608e0fefba.jpeg" alt="Motivos para doar sangue">
+                <h3>Motivos para Doar</h3>
+                <p>Doar sangue ajuda a salvar vidas, protege o coração, diminui os riscos de câncer e ainda proporciona um dia de folga.</p>
+            </div>
+
+           
+    </div>
+        
+
+        <!-- Seção Importante -->
+        <div class="important-section" id="important-section">
+            <h2>Qual a importância de doar sangue?</h2>
+            <p>Cada gota doada é uma esperança para quem precisa. Ao doar sangue, você faz a diferença na vida de muitas pessoas. Doe sangue, doe vida!</p>
+            <a href="https://hbb.famesp.org.br/espaco_doador.php?id=1504" class="btn">Saiba Mais</a>
+        </div>
+<br>
+<br>
+        <div class="content-grid">
+
+         <!-- Quarta Seção -->
+         <div class="content-item">
+            <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg" alt="Quantas vidas você pode salvar">
+            <h3>Quantas Vidas Você Pode Salvar?</h3>
+            <p>Uma única doação pode salvar até quatro vidas! E o melhor: o seu organismo repõe o sangue coletado em até 24 horas.</p>
+        </div>
+    
+        <!-- Quinta Seção -->
+    <div class="content-item">
+        <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg" alt="Quantas vidas você pode salvar">
+        <h3> Sabe quais os Tipos sanguíneos ?</h3>
+        <center> 
+        <p> A  .</p>
+        <p> B  .</p>
+        <p> AB  .</p>
+        <p> O   .</p>
+        </center>
+    </div>
+
+        <!-- Sexta Seção -->
+    <div class="content-item">
+        <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg" alt="Quantas vidas você pode salvar">
+        <h3>Compatibilidade sanguina ?</h3>
+        <p>Sangue A:  Recebe de tipo A ou O</p>
+        <p>Sangue B:  Recebe sangue de pessoas do tipo B ou O;</p> </p>
+        <p>Sangue AB: Todos os tipos sem que haja reação</p>
+        <p>Sangue O:  Recebe apenas sangue de tipo O;</p></p>
+        
+    </div>
+</div>
+
+        <footer>
+            © 2024 - Sangue Bom
+        </footer>
+    </div>
+
+    <script>
+        // Criação do Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Adiciona a classe 'visible' quando o elemento entra na tela
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 }); // Aciona quando 20% do elemento entra na tela
+
+        // Observa o elemento
+        const importantSection = document.getElementById('important-section');
+        observer.observe(importantSection);
+    </script>
+</body>
+
+</html>
