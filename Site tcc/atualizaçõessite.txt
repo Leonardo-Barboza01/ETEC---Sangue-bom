@@ -1,4 +1,32 @@
 atualizacões site fazer
 
 **FAZER URGENTE
-If e else dos termos para os dois tipos de laboratorios mais famosos de bauru
+concertar If e else dos termos para os dois tipos de laboratorios mais famosos de bauru
+projeto ttc, timbre, snague bom, gota
+
+RELATORIO TECNICO 
+Melhorar a introdução 
+colocar as telas do projeto no desenvolvimento
+
+BANCA 
+enfeitar a banca com balões e eva e tnt branco com a logo da gotinha.
+
+
+
+
+
+
+
+
+
+Como as Diferenças de Sexo Afetam os Valores de Referência?
+A principal razão para as diferenças nos valores de referência de hemogramas entre homens e mulheres está nos níveis hormonais. A testosterona, presente em níveis mais elevados nos homens, estimula a produção de glóbulos vermelhos, resultando em uma maior contagem de hemoglobina, hematócrito e eritrocitos. Além disso, o ciclo menstrual nas mulheres pode contribuir para níveis mais baixos de hemoglobina e hematócrito.
+
+Referências
+Os valores de referência que forneci são comumente encontrados em práticas laboratoriais de grandes hospitais e clínicas, com base em fontes confiáveis, como:
+
+Organização Mundial da Saúde (OMS), que fornece as diretrizes para os valores normais de exames laboratoriais.
+Hematologia: Princípios e Prática Clínica – Livro-texto que detalha as variações em exames laboratoriais.
+Manual de Hematologia – Manual de práticas laboratoriais, publicado por diversas organizações científicas.
+Esses valores podem variar ligeiramente dependendo do laboratório, da metodologia utilizada e da população da qual a amostra foi extraída (por exemplo, faixa etária, localização geográfica). Portanto, é sempre importante verificar as faixas de referência específicas fornecidas pelo laboratório que realiza o exame.
+

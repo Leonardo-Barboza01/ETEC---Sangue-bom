@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sangue Bom</title>
+	 <link rel="icon" href="logo.png" type="image/png">
     <style>
         body {
             margin: 0;
@@ -73,29 +74,22 @@
             font-size: 1rem;
         }
 
-        .btn {
-            background-color: #8b1b1b;
-            color: white;
-            border: none;
-            padding: 9px 0;
-            font-size: 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            width: 60%;
-		    margin-top: 20px;
+      /* Botão */
+        .btn.voltar {
+            background-color: #fff; /* Fundo branco */
+            color: #94150D; /* Texto vermelho */
+            border: 2px solid #94150D; /* Borda vermelha */
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
         }
 
-        .btn.voltar {
-            background-color: white;
-            color: #8b1b1b;
-            border: 2px solid #8b1b1b;
-            margin-top: 10px;
-			width:150px;
-				
-        }
-		 .btn:hover {
-            background-color: #ff4d4d; /* Mudança de cor ao passar por cima */
-            transform: scale(1.05); /* Aumenta levemente o botão */
+        .btn.voltar:hover {
+            background-color: #94150D; /* Fundo vermelho */
+            color: #fff; /* Texto branco */
+            transform: scale(1.1); /* Aumenta levemente o botão */
         }
 
         @media (max-width: 600px) {

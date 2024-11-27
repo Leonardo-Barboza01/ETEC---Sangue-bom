@@ -93,7 +93,7 @@
             margin-top: 10px;
             font-size: 16px;
             border-radius: 25px;
-            padding: 20px 30px;
+            padding: 10px 40px;
             transition: all 0.3s ease;
         }
 

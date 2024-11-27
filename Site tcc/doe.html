@@ -4,183 +4,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doe Sangue</title>
+    <title>Doe Sangue - Juntos Somos Mais Fortes</title>
     <style>
+        /* Estruturação Princiapl */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: 'Arial', sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/paper.png') repeat;
-            font-size: 1em;
+            background: #f5f5f5; /* Cor de fundo clara */
+            font-size: 1%;
         }
 
-        .newsletter-container {
+        /* Container principal da página */
+        .container {
             width: 100%;
-            max-width: 1500px;
+            max-width: 1200px;
             margin: auto;
-            background-color: #EEE2E2;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container-segundo {
-            width: 75%;
-            max-width: 1300px;
-            margin: auto;
-            background-color: #2664ac;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            border-radius: 90px;
-            opacity: 0;
-            transform: translatey(30px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-
-        .container-segundo.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        header {
-            background-color: #a50000;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            font-size: 36px;
-            font-weight: bold;
-        }
-
-        .subheader {
-            color: #000000;
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .news-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-left: 20%;
-        }
-
-        .news-item {
-            background-color: #ff7f7f;
-            border-radius: 10px;
-            color: white;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-
-           
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border: 2px solid #d1d1d1;
-        }
-
-        .news-item img {
-            width: 100%;
-            border-radius: 10px;
-            max-height: 200px;
-            object-fit: cover;
-        }
-
-        .news-item h2 {
-            margin: 10px 0;
-        }
-
-        .services-content-titulo {
-            font-size: 30px;
-            color: #ffffff;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .services-content-texto {
-            font-size: 30px;
-            line-height: 1.6;
-            text-align: center;
-            color: #ffffff;
-            margin: 20px 0;
-            margin-top: -30px;
-        }
-
-        
-        .btn {
-            background-color: #fff;
-            color: white;
-            border: 2px solid #94150D;
-            padding: 9px 0;
-            font-size: 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            width: 150px;
-            margin: 20px auto;
-            text-align: center;
-			margin-top: 10px;
-			transition: all 0.3s ease;
-        }
-		
-            
-
-        .btn.voltar {
             background-color: white;
-            color: #8b1b1b;
-            border: 2px solid #8b1b1b;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #c0392b; /* Vermelho intenso */
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+            font-size: 5vw; /* Usando unidades relativas para que se ajuste automaticamente */
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 6vw; /* Ajuste de tamanho de fonte */
+            margin: 0;
+        }
+
+        /* Subtítulo */
+        .subheader {
+            font-size: 2vw;
+            color: #555;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Grid de conteúdo */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 15px;
+        }
+
+        /* Item de conteúdo */
+        .content-item {
+            background-color: #ff4f58; /* Tom suave de vermelho */
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 5px solid #ffffff;
+        }
+
+        .content-item h3 {
+            margin: 15px;
+            font-size: 2vw;
+        }
+
+        .content-item p {
+            margin: 0 15px 15px;
+            font-size: 1.2vw;
+            line-height: 1.6;
+        }
+
+      
+        /* Seção "Por que doar?" */
+		.important-section {
+		text-align: center;
+		background-color: #c0392b;
+		color: white;
+		padding: 40px;
+		margin-top: 40px;
+		border-radius: 10px;
+		opacity: 0; /* Inicialmente invisível */
+		transform: translateY(30px); /* Deslocada para baixo */
+		transition: opacity 0.5s ease-out, transform 0.5s ease-out, transform 0.3s ease; /* Animação */
+}
+
+.important-section.visible {
+    opacity: 1; /* Tornar visível */
+    transform: translateY(0); /* Voltar à posição original */
+}
+
+/* Animação de expansão ao passar o mouse por cima */
+.important-section:hover {
+    transform: scale(1.05); /* Expansão da div */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Sombra para dar o efeito de elevação */
+}
+
+.important-section h2 {
+    font-size: 3.5vw;
+    margin-bottom: 20px;
+}
+
+.important-section p {
+    font-size: 1.8vw;
+    line-height: 1.8;
+}
+
+
+        /* Botão */
+        .btn {
+            background-color: #c0392b;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
         }
 
         .btn:hover {
-            background-color: #94150D; /* Fundo vermelho */
-            color: #fff; /* Texto branco */
-            transform: scale(1.1); /* Aumenta levemente o botão */
+            background-color: #e74c3c;
+            transform: scale(1.05);
         }
-		
-	
+		 .btn.voltar {
+            background-color: #fff;
+            color: #94150D;
+            border: 2px solid #94150D;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+			
+        }
+
+        .btn.voltar:hover {
+            background-color: #94150D;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #f1f1f1;
+        }
 
         /* Responsividade */
         @media (max-width: 768px) {
             header {
-                font-size: 28px;
+                font-size: 6vw;
             }
 
             .subheader {
-                font-size: 20px;
+                font-size: 4vw;
             }
 
-            .services-content-titulo {
-                font-size: 24px;
+            .content-item h3 {
+                font-size: 4vw;
             }
 
-            .services-content-texto {
-                font-size: 18px;
+            .important-section h2 {
+                font-size: 5vw;
+            }
+
+            .important-section p {
+                font-size: 3.5vw;
             }
 
             .btn {
                 width: 100%;
+                font-size: 5vw; /* Botão maior em dispositivos pequenos */
             }
         }
 
+        /* Melhor ajuste em telas muito pequenas (menores que 480px) */
         @media (max-width: 480px) {
             header {
-                font-size: 24px;
+                font-size: 8vw;
             }
 
             .subheader {
-                font-size: 18px;
+                font-size: 3vw;
             }
 
-            .services-content-titulo {
-                font-size: 20px;
+            .content-item h3 {
+                font-size: 5vw;
             }
 
-            .services-content-texto {
-                font-size: 16px;
+            .important-section h2 {
+                font-size: 6vw;
             }
 
-            .news-item {
-                padding: 10px;
+            .important-section p {
+                font-size: 4vw;
+            }
+
+            .btn {
+                font-size: 6vw;
             }
         }
     </style>
@@ -188,94 +234,101 @@
 
 <body>
 
-    <div class="newsletter-container">
+    <div class="container">
         <header>
-            Doe Sangue
+            <h1>Doe Sangue</h1>
         </header>
-        <br><br>
-        <div class="subheader">"Um simples ato que pode ser repercutido por várias gerações"</div>
 
-        <div class="news-layout">
-            <div class="news-item">
-                <img src="https://cdn.prod.website-files.com/62cc56fc2b55bd9bafba3478/648a595935263e90541b8fc4_doar-sangue-faz-bem%20(1).jpg" alt="Imagem de doação de sangue">
-                <h2>Prepare-se bem antes de doar!</h2>
-                <p>Uma boa noite de sono pelo menos seis horas por dia.</p>
-                <p>Se alimente adequadamente antes de doar!</p>
-                <p>Sempre se mantenha hidratado!</p>
+        <div class="subheader">
+            "Um simples ato que pode ser repercutido por várias gerações."
+        </div>
+
+        <div class="content-grid">
+            <!-- Primeira Seção -->
+            <div class="content-item">
+                <img src="https://cdn.prod.website-files.com/62cc56fc2b55bd9bafba3478/648a595935263e90541b8fc4_doar-sangue-faz-bem%20(1).jpg" alt="Preparação para doação de sangue">
+                <h3>Prepare-se para Doar</h3>
+                <p>Uma boa noite de sono e uma alimentação saudável são essenciais antes de realizar a doação. Além disso, mantenha-se hidratado.</p>
             </div>
 
-            <div class="news-item">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQWUh_ZtfnLe6s_htNROTlhEwqbofInlOXMg&s" alt="Imagem de doação de sangue">
-                <h2>Requisitos</h2>
-                <p>Ter entre 16 e 69 anos e pesar mais de 50kg.</p>
-                <p>Não estar em jejum e evitar alimentação gordurosa.</p>
-                <p>Apresentar documento oficial de identidade com foto.</p>
+            <!-- Segunda Seção -->
+            <div class="content-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQWUh_ZtfnLe6s_htNROTlhEwqbofInlOXMg&s" alt="Requisitos para doação de sangue">
+                <h3>Requisitos para Doar</h3>
+                <p>Para doar, você deve ter entre 16 e 69 anos, pesar mais de 50kg e não estar em jejum. Além disso, é necessário apresentar um documento de identidade.</p>
             </div>
 
-            <br><br>
-            <div class="news-item">
-                <img src="https://www12.senado.leg.br/radio/1/noticia/2024/09/26/27-de-setembro-e-o-dia-nacional-da-doacao-de-orgaos/@@images/ce2a7d7c-8b3f-47d9-b5a9-d9608e0fefba.jpeg">
-                <h2>Motivos para ir doar sangue</h2>
-                <p>Dia de folga.
-                    <br><br>
-                    Protege o coração.
-                    <br><br>
-                    Menos risco de câncer.
-                    <br><br>
-                    Ajudar quem precisa.</p>
-            </div>
-
-            <div class="news-item">
-                <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg">
-                <h2>Quantas vidas podem salvar?</h2>
-                <p>A doação permite doar vida até quatro pessoas.</p>
-                <p>Em uma doação são coletados no máximo 450 ml.</p>
-                <p>O sangue coletado é reposto em 24 horas pelo organismo.</p>
+            <!-- Terceira Seção -->
+            <div class="content-item">
+                <img src="https://www12.senado.leg.br/radio/1/noticia/2024/09/26/27-de-setembro-e-o-dia-nacional-da-doacao-de-orgaos/@@images/ce2a7d7c-8b3f-47d9-b5a9-d9608e0fefba.jpeg" alt="Motivos para doar sangue">
+                <h3>Motivos para Doar</h3>
+                <p>Doar sangue ajuda a salvar vidas, protege o coração, diminui os riscos de câncer e ainda proporciona um dia de folga.</p>
             </div>
         </div>
 
+        <!-- Seção Importante -->
+        <div class="important-section" id="important-section">
+            <h2>Qual a importância de doar sangue?</h2>
+            <p>Cada gota doada é uma esperança para quem precisa. Ao doar sangue, você faz a diferença na vida de muitas pessoas. Doe sangue, doe vida!</p>
+            <a href="https://hbb.famesp.org.br/espaco_doador.php?id=1504" class="btn">Saiba Mais</a>
+        </div>
+        
         <br><br>
 
-        <div class="container-segundo" id="importance-section">
-            <div class="services-content-titulo">
-                <h2>Qual a importância de doar ?</h2>
+        <div class="content-grid">
+            <!-- Quarta Seção' -->
+            <div class="content-item">
+                <img src="https://clinicaimagemsorriso.com.br/wp-content/uploads/2021/08/doacao-de-sangue.jpg" alt="Quantas vidas você pode salvar">
+                <h3>Quantas Vidas Você Pode Salvar?</h3>
+                <p>Uma única doação pode salvar até quatro vidas! E o melhor: o seu organismo repõe o sangue coletado em até 24 horas.</p>
+            </div>
+    
+            <!-- Quinta Seção -->
+            <div class="content-item">
+                <img src="https://ecommerce.cdn.genera.com.br/uploads/2018/09/sangue-eua-ricos-ambrosia-1.jpg" alt="Quantas vidas você pode salvar">
+                <h3> Sabe quais os Tipos sanguíneos ?</h3>
+                <center>
+                    <p> A .</p>
+                    <p> B .</p>
+                    <p> AB .</p>
+                    <p> O .</p>
+                </center>
             </div>
 
-            <div class="services-content-texto">
-                Cada gota é uma nova esperança. Ao doar, você se torna um herói anônimo,
-                fazendo a diferença na vida de alguém que precisa. Doe sangue, doe vida!</p>
+            <!-- Sexta Seção -->
+            <div class="content-item">
+                <img src="https://img.odcdn.com.br/wp-content/uploads/2022/05/exames-de-sangue.jpg" alt="Compatibilidade sanguina">
+                <h3>Compatibilidade sanguínea?</h3>
+                <p>Sangue A: Recebe de tipo A ou O</p>
+                <p>Sangue B: Recebe sangue de pessoas do tipo B ou O;</p>
+                <p>Sangue AB: Todos os tipos sem que haja reação</p>
+                <p>Sangue O: Recebe apenas sangue de tipo O;</p>
             </div>
         </div>
-
-
-        <a href="inicio.html" class="btn voltar">Voltar</a>
-
-       
+		
+        <footer>
+            © 2024 - Sangue Bom
+        </footer>
+		
     </div>
-
+		<center>
+		  <button class="btn voltar" onclick="window.location.href='inicio.html'">Voltar</button>
+		</center>
     <script>
-        window.addEventListener('scroll', () => {
-            const container = document.getElementById('importance-section');
-            const rect = container.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                container.classList.add('visible');
-            }
-        });
-
-        const items = document.querySelectorAll('.news-item');
-
-        window.addEventListener('scroll', () => {
-            items.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    item.classList.add('visible'); // Adicione uma classe para animação
+        // Criação do Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Adiciona a classe 'visible' quando o elemento entra na tela
+                    entry.target.classList.add('visible');
                 }
             });
-        });
-    </script>
+        }, { threshold: 0.2 }); // Aciona quando 20% do elemento entra na tela
 
+        // Observa o elemento
+        const importantSection = document.getElementById('important-section');
+        observer.observe(importantSection);
+    </script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	 <link rel="icon" href="logo.png" type="image/png">
     <style>
         * {
             font-family: Poppins, sans-serif;
@@ -95,7 +96,6 @@
             font-style: italic;
         }
 
-        /* Botão */
         .btn.voltar {
             background-color: #fff;
             color: #94150D;
@@ -113,8 +113,7 @@
             transform: scale(1.1);
         }
       
-	  
-        .btn-laboratorio {
+        .btn-sexo {
             background-color: #94150D;
             color: white;
             border: none;
@@ -126,12 +125,12 @@
             cursor: pointer;
         }
 
-        .btn-laboratorio.selected {
-            background-color: #5a0d00; /* Cor mais escura quando selecionado */
+        .btn-sexo.selected {
+            background-color: #5a0d00;
             transform: scale(1.05);
         }
 
-        .btn-laboratorio:hover {
+        .btn-sexo:hover {
             background-color: #5a0d00;
         }
         /* Responsividade */
@@ -159,30 +158,37 @@
         </center>
         <br><br>
         <div class="row">
-            <!-- Botões para escolher o laboratório -->
+           
            <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
                 <button 
-                    class="btn-laboratorio" 
-                    :class="{ selected: laboratorio === 'Laboratório A' }" 
-                    @click="selecionarLaboratorio('Laboratório A')">
-                    Laboratório A
+                    class="btn-sexo" 
+                    :class="{ selected: sexo === 'Mulher' }" 
+                    @click="selecionarSexo('Mulher')">
+                    Mulher
                 </button>
                 <button 
-                    class="btn-laboratorio" 
-                    :class="{ selected: laboratorio === 'Laboratório B' }" 
-                    @click="selecionarLaboratorio('Laboratório B')">
-                    Laboratório B
+                    class="btn-sexo" 
+                    :class="{ selected: sexo === 'Homem' }" 
+                    @click="selecionarSexo('Homem')">
+                    Homem
                 </button>
             </div>
             <br><br>
-
-            <!-- Coluna para Inputs (Série Vermelha e Branca) -->
+<br>
+        <div  class="cadastro">
+            <h3>Nome</h3>
+            <input type="text" v-model="usuario.nome" placeholder="Digite seu nome" />
+            <h3>Idade</h3>
+            <input type="number" v-model="usuario.idade" placeholder="Digite sua idade" />
+        </div>
+	<br>
+            
             <div class="col-md-6">
                 <div class="series">
                     <p class="seriesvermelha">SÉRIE VERMELHA (ERITOGRAMA)</p>
-                    <!-- Inputs da série vermelha -->
+                    
                     <div>
-                        <h3>ERITRÓCITOS</h3>
+                        <h3>ERITRÓCITOS OU HEMÁCIAS</h3>
                         <input type="number" v-model="valores.eritrocitos" placeholder="Digite o valor de referência..." />
                     </div>
                     <div>
@@ -213,7 +219,7 @@
 
                 <div class="series">
                     <p class="seriesbranca">SÉRIE BRANCA (LEUCOGRAMA)</p>
-                    <!-- Inputs da série branca -->
+                    
                     <div>
                         <h3>LEUCÓCITOS</h3>
                         <input type="number" v-model="valores.leucocitos" placeholder="Digite o valor de referência..." />
@@ -246,16 +252,33 @@
                         <h3>BASÓFILOS</h3>
                         <input type="number" v-model="valores.basofilos" placeholder="Digite o valor de referência..." />
                     </div>
+					<div>
+						<h3>LINF.TÍPICOS</h3>
+                        <input type="number" v-model="valores.linftipicos" placeholder="Digite o valor de referência..." />
+                    </div>
+					<div>
+					<h3>LINF.ATÍPICOS</h3>
+                        <input type="number" v-model="valores.linfatipicos" placeholder="Digite o valor de referência..." />
+                    </div>
+					<div>
+					<h3>MONÓCITOS</h3>
+                        <input type="number" v-model="valores.monocitos" placeholder="Digite o valor de referência..." />
+                    </div>
+					<div>
+					<h3>PLASMÓCITOS</h3>
+                        <input type="number" v-model="valores.plasmocitos" placeholder="Digite o valor de referência..." />
+                    </div>
                 </div>
             </div>
 
-            <!-- Coluna para Resultados -->
+
+            
             <div class="col-md-6">
                 <div class="resultado">
                     <p class="seriesvermelha">RESULTADOS SÉRIE VERMELHA</p>
-                    <!-- Resultados da série vermelha -->
+                    
                     <div v-if="valores.eritrocitos !== ''">
-                        <h3>ERITRÓCITOS: {{ valores.eritrocitos }} - {{ calcularValor('eritrocitos') }}</h3>
+                        <h3>ERITRÓCITOS OU HEMÁCIAS: {{ valores.eritrocitos }} - {{ calcularValor('eritrocitos') }}</h3>
                     </div>
                     <div v-if="valores.hemoglobina !== ''">
                         <h3>HEMOGLOBINA: {{ valores.hemoglobina }} - {{ calcularValor('hemoglobina') }}</h3>
@@ -279,7 +302,7 @@
 
                 <div class="resultado">
                     <p class="seriesbranca">RESULTADOS SÉRIE BRANCA</p>
-                    <!-- Resultados da série branca -->
+                    
                     <div v-if="valores.leucocitos !== ''">
                         <h3>LEUCÓCITOS: {{ valores.leucocitos }} - {{ calcularValor('leucocitos') }}</h3>
                     </div>
@@ -304,154 +327,240 @@
                     <div v-if="valores.basofilos !== ''">
                         <h3>BASÓFILOS: {{ valores.basofilos }} - {{ calcularValor('basofilos') }}</h3>
                     </div>
+					<div v-if="valores.linftipicos !== ''">
+                        <h3>LINF.TÍPICOS: {{ valores.linftipicos }} - {{ calcularValor('linftipicos') }}</h3>
+                    </div>
+					<div v-if="valores.linfatipicos !== ''">
+                        <h3>LINF.ATÍPICOS: {{ valores.linfatipicos }} - {{ calcularValor('linfatipicos') }}</h3>
+                    </div>
+					<div v-if="valores.monocitos !== ''">
+                        <h3>MONÓCITOS: {{ valores.monocitos }} - {{ calcularValor('monocitos') }}</h3>
+                    </div>
+					<div v-if="valores.plasmocitos !== ''">
+                        <h3>PLASMÓCITOS: {{ valores.plasmocitos }} - {{ calcularValor('plasmocitos') }}</h3>
+                    </div>
                 </div>
             </div>
         </div>
-	<br>
-        <div  class="cadastro">
-            <h3>Nome</h3>
-            <input type="text" v-model="usuario.nome" placeholder="Digite seu nome" />
-            <h3>Idade</h3>
-            <input type="number" v-model="usuario.idade" placeholder="Digite sua idade" />
-        </div>
-	<br>
-        <!-- Botões para Voltar e Gerar PDF -->
+	
+       
         <center>
             <button class="btn voltar" onclick="window.location.href='inicio.html'">Voltar</button>
             <button class="btn voltar" @click="gerarPDF">Gerar PDF</button>
         </center>
     </div>
 
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                usuario: {
-                    nome: '',
-                    idade: ''
-                },
-                valores: {
-                    eritrocitos: '',
-                    hemoglobina: '',
-                    hematocrito: '',
-                    vcm: '',
-                    hcm: '',
-                    chcm: '',
-                    rdw: '',
-                    leucocitos: '',
-                    promielocitos: '',
-                    mielocitos: '',
-                    metamielocitos: '',
-                    bastonetes: '',
-                    segmentados: '',
-                    eosinofilos: '',
-                    basofilos: ''
-                },
-                laboratorio: null 'Não selecionado'
+   <script>
+    new Vue({
+        el: '#app',
+        data: {
+            usuario: {
+                nome: '',
+                idade: ''
             },
-            methods: {
-                selecionarLaboratorio(laboratorio) {
-                    this.laboratorio = laboratorio;
-                },
-                calcularValor(tipo) {
-                    let valor = parseFloat(this.valores[tipo]);
-                    if (isNaN(valor)) return '';
-                    
-                    switch (this.laboratorio) {
-                        case 'Laboratório A':
-                            switch (tipo) {
-                                case 'eritrocitos':
-                                    return valor < 4.1 ? "Baixo" : valor <= 5.10 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hemoglobina':
-                                    return valor < 13 ? "Baixo" : valor <= 17 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hematocrito':
-                                    return valor < 40 ? "Baixo" : valor <= 50 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'vcm':
-                                    return valor < 83 ? "Baixo" : valor <= 101 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hcm':
-                                    return valor < 27 ? "Baixo" : valor <= 31 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'chcm':
-                                    return valor < 31.5 ? "Baixo" : valor <= 34.5 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'rdw':
-                                    return valor < 11.6 ? "Baixo" : valor <= 14 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'leucocitos':
-                                    return valor < 4000 ? "Baixo" : valor <= 10000 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'promielocitos':
-                                case 'mielocitos':
-                                case 'metamielocitos':
-                                case 'bastonetes':
-                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'segmentados':
-                                    return valor < 1500 ? "Baixo" : valor <= 7500 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'eosinofilos':
-                                    return valor < 0 ? "Baixo" : valor <= 500 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'basofilos':
-                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
-                                default:
-                                    return '';
-                            }
-                        case 'Laboratório B':
-                            
-                            switch (tipo) {
-                                case 'eritrocitos':
-                                    return valor < 4.2 ? "Baixo" : valor <= 5.20 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hemoglobina':
-                                    return valor < 12.5 ? "Baixo" : valor <= 16.5 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hematocrito':
-                                    return valor < 41 ? "Baixo" : valor <= 51 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'vcm':
-                                    return valor < 82 ? "Baixo" : valor <= 100 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'hcm':
-                                    return valor < 26 ? "Baixo" : valor <= 30 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'chcm':
-                                    return valor < 32 ? "Baixo" : valor <= 34 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'rdw':
-                                    return valor < 11.8 ? "Baixo" : valor <= 13.5 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'leucocitos':
-                                    return valor < 4500 ? "Baixo" : valor <= 9500 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'promielocitos':
-                                case 'mielocitos':
-                                case 'metamielocitos':
-                                case 'bastonetes':
-                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'segmentados':
-                                    return valor < 2000 ? "Baixo" : valor <= 8000 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'eosinofilos':
-                                    return valor < 0 ? "Baixo" : valor <= 600 ? "Normal, adequado" : "Inadequado, alto demais";
-                                case 'basofilos':
-                                    return valor <= 0 ? "Normal, adequado" : "Inadequado, alto demais";
-                                default:
-                                    return '';
-                            }
-                        default:
-                            return '';
-                    }
-                },
-                gerarPDF() {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
+            valores: {
+                eritrocitos: '',
+                hemoglobina: '',
+                hematocrito: '',
+                vcm: '',
+                hcm: '',
+                chcm: '',
+                rdw: '',
+                leucocitos: '',
+                promielocitos: '',
+                mielocitos: '',
+                metamielocitos: '',
+                bastonetes: '',
+                segmentados: '',
+                eosinofilos: '',
+                basofilos: '',
+                linftipicos: '',
+                linfatipicos: '',
+                monocitos: '',
+                plasmocitos: ''
+            },
+            sexo: 'Não selecionado'
+        },
+        methods: {
+            selecionarSexo(sexo) {
+                this.sexo = sexo;
+            },
+            calcularValor(tipo) {
+                let valor = parseFloat(this.valores[tipo]);
+                if (isNaN(valor)) return '';
 
-                    // Adiciona os dados do usuário e dos valores
-					doc.text(`Laboratório: ${this.laboratorio}`, 20, 20);
-                    doc.text(`Nome: ${this.usuario.nome}`, 20, 30);
-                    doc.text(`Idade: ${this.usuario.idade}`, 20, 40);
-                    doc.text('Valores do Hemograma:', 20, 60);
-
-
-                    // Adiciona os valores inseridos e os resultados calculados
-                    Object.keys(this.valores).forEach((campo, index) => {
-                        let valor = this.valores[campo];
-                        if (valor) {
-                            const resultado = this.calcularValor(campo);
-                            doc.text(`${campo.toUpperCase()}: ${valor} - ${resultado}`, 20, 50 + index * 10);
+                switch (this.sexo) {
+                    case 'Mulher':
+                        switch (tipo) {
+                            case 'eritrocitos':
+                                return valor < 3.8 ? "Baixo" : valor <= 5.4 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hemoglobina':
+                                return valor < 12 ? "Baixo" : valor <= 16 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hematocrito':
+                                return valor < 35 ? "Baixo" : valor <= 47 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'vcm':
+                                return valor < 80 ? "Baixo" : valor <= 101 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hcm':
+                                return valor < 27 ? "Baixo" : valor <= 32 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'chcm':
+                                return valor < 31 ? "Baixo" : valor <= 36 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'rdw':
+                                return valor < 10 ? "Baixo" : valor <= 16 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'leucocitos':
+                                return valor < 4000 ? "Baixo" : valor <= 11000 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'promielocitos':
+                                return valor <= 0 ? "Normal, adequado" : "Alto, inadequado"; 
+                            case 'mielocitos':
+                                return valor <= 0 ? "Normal, adequado" : "Alto, inadequado"; 
+                            case 'metamielocitos':
+                                return valor < 0 ? "Baixo" : valor <= 1 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'bastonetes':
+                                return valor < 0 ? "Baixo" : valor <= 10 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'segmentados':
+                                return valor < 48 ? "Baixo" : valor <= 73 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'eosinofilos':
+                                return valor < 1 ? "Baixo" : valor <= 6 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'basofilos':
+                                return valor < 0 ? "Baixo" : valor <= 2 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'linftipicos':
+                                return valor < 27 ? "Baixo" : valor <= 42 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'linfatipicos':
+                                return valor < 0 ? "Baixo" : valor <= 1 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'monocitos':
+                                return valor < 2 ? "Baixo" : valor <= 12 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'plasmocitos':
+                                return valor < 0 ? "Baixo" : valor <= 200 ? "Normal, adequado" : "Alto, inadequado";
+                            default:
+                                return '';
                         }
-                    });
 
-                    // Gera o PDF
-                    doc.save('resultado_hemograma.pdf');
+                    case 'Homem':
+                        switch (tipo) {
+                            case 'eritrocitos':
+                                return valor < 4.2 ? "Baixo" : valor <= 5.9 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hemoglobina':
+                                return valor < 13 ? "Baixo" : valor <= 18 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hematocrito':
+                                return valor < 38 ? "Baixo" : valor <= 52 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'vcm':
+                                return valor < 80 ? "Baixo" : valor <= 100 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'hcm':
+                                return valor < 27 ? "Baixo" : valor <= 32 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'chcm':
+                                return valor < 31 ? "Baixo" : valor <= 36 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'rdw':
+                                return valor < 10 ? "Baixo" : valor <= 16 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'leucocitos':
+                                return valor < 4000 ? "Baixo" : valor <= 11000 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'promielocitos':
+                                return valor <= 0 ? "Normal, adequado" : "Alto, inadequado"; 
+                            case 'mielocitos':
+                                return valor <= 0 ? "Normal, adequado" : "Alto, inadequado"; 
+                            case 'metamielocitos':
+                                return valor < 0 ? "Baixo" : valor <= 1 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'bastonetes':
+                                return valor < 0 ? "Baixo" : valor <= 10 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'segmentados':
+                                return valor < 48 ? "Baixo" : valor <= 73 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'eosinofilos':
+                                return valor < 1 ? "Baixo" : valor <= 6 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'basofilos':
+                                return valor < 0 ? "Baixo" : valor <= 2 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'linftipicos':
+                                return valor < 27 ? "Baixo" : valor <= 42 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'linfatipicos':
+                                return valor < 0 ? "Baixo" : valor <= 1 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'monocitos':
+                                return valor < 2 ? "Baixo" : valor <= 12 ? "Normal, adequado" : "Alto, inadequado";
+                            case 'plasmocitos':
+                                return valor < 0 ? "Baixo" : valor <= 0 ? "Normal, adequado" : "Alto, inadequado";
+                            default:
+                                return '';
+                        }
+
+                    default:
+                        return ''; // Caso nenhum sexo esteja selecionado
                 }
+            },
+            gerarPDF() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const hoje = new Date();
+                const dataEmissao = hoje.toLocaleDateString('pt-BR');
+
+                // Adiciona os dados do usuário
+                doc.text(`Nome: ${this.usuario.nome}`, 20, 20);
+                doc.text(`Sexo: ${this.sexo}`, 20, 30);
+                doc.text(`Idade: ${this.usuario.idade}`, 20, 40);
+                doc.text(`Data de Emissão: ${dataEmissao}`, 20, 50);
+
+                // Dados do hemograma
+                doc.text('Valores do Hemograma:', 20, 60);
+                let yPosition = 70;
+
+                // Série Vermelha
+                doc.text('Série Vermelha (Eritograma):', 20, yPosition);
+                yPosition += 10;
+
+                const serieVermelha = [
+                    { campo: 'eritrocitos', nome: 'ERITRÓCITOS' },
+                    { campo: 'hemoglobina', nome: 'HEMOGLOBINA' },
+                    { campo: 'hematocrito', nome: 'HEMATÓCRITO' },
+                    { campo: 'vcm', nome: 'VCM' },
+                    { campo: 'hcm', nome: 'HCM' },
+                    { campo: 'chcm', nome: 'CHCM' },
+                    { campo: 'rdw', nome: 'RDW' }
+                ];
+
+                serieVermelha.forEach((item) => {
+                    let valor = this.valores[item.campo];
+                    if (valor !== '') {
+                        const resultado = this.calcularValor(item.campo); // Calcula o resultado
+                        doc.text(`${item.nome}: ${valor} - ${resultado}`, 20, yPosition);
+                        yPosition += 10;
+                    }
+                });
+
+                // Adiciona espaço entre as séries
+                yPosition += 10;
+                
+                // Série Branca
+                doc.text('Série Branca (Leucograma):', 20, yPosition);
+                yPosition += 10;
+
+                // Adiciona os valores da Série Branca
+                const serieBranca = [
+                    { campo: 'leucocitos', nome: 'LEUCÓCITOS' },
+                    { campo: 'promielocitos', nome: 'PROMIELÓCITOS' },
+                    { campo: 'mielocitos', nome: 'MIELÓCITOS' },
+                    { campo: 'metamielocitos', nome: 'METAMIELÓCITOS' },
+                    { campo: 'bastonetes', nome: 'BASTONETES' },
+                    { campo: 'segmentados', nome: 'SEGMENTADOS' },
+                    { campo: 'eosinofilos', nome: 'EOSINÓFILOS' },
+                    { campo: 'basofilos', nome: 'BASÓFILOS' },
+					{ campo: 'linftipicos', nome: 'BASÓFILOS' },
+					{ campo: 'linfatipicos', nome: 'BASÓFILOS' },
+					{ campo: 'monocitos', nome: 'BASÓFILOS' },
+					{ campo: 'plasmocitos', nome: 'BASÓFILOS' }
+					
+                ];
+
+                serieBranca.forEach((item) => {
+                    let valor = this.valores[item.campo];
+                    if (valor !== '') {
+                        const resultado = this.calcularValor(item.campo); // Calcula o resultado
+                        doc.text(`${item.nome}: ${valor} - ${resultado}`, 20, yPosition);
+                        yPosition += 10;
+                    }
+                });
+
+                // Gera o PDF
+                doc.save('resultado_hemograma.pdf');
             }
-        });
-    </script>
+        }
+    });
+</script>
+
 </body>
 </html>
